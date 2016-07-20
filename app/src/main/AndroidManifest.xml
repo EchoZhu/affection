@@ -24,9 +24,10 @@
             android:name=".activity.MainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".activity.LoginActivity"
             android:label="@string/title_activity_login" />
-        <activity android:name=".activity.ScheduleActivity"></activity>
+        <activity android:name=".activity.ScheduleActivity" />
+        <activity android:name=".activity.PhotoDetailActivity"></activity>
     </application>
 
 </manifest>
