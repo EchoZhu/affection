@@ -1,13 +1,51 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.bupt.affection.fragment.MessageFragment">
 
     <!-- TODO: Update blank fragment layout -->
+
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="35dp"
+        android:background="@drawable/text_view_border"
+        android:text="留言"
+        android:textColor="#000000"
+        android:textSize="10pt"
+        android:gravity="center"
+        android:layout_gravity="center_horizontal|top" />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ListView
+            android:id="@id/android:list"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:scrollbars="vertical"></ListView>
+        <EditText
+            android:id="@+id/ET"
+            android:layout_width="match_parent"
+            android:layout_height="170dp"
+            android:layout_gravity="center"
+            android:layout_margin="2dip"
+            android:textColorHint="#AAAAAA"
+            android:textSize="15dip"
+            android:paddingLeft="5dp"
+            android:singleLine="true"
+            android:background="@drawable/text_view_border"
+            android:hint="请输入留言..."/>
 
-</FrameLayout>
+        <Button
+            android:layout_width="102dp"
+            android:layout_height="37dp"
+            android:text="发送"
+            android:id="@+id/button"
+            android:layout_alignBottom="@id/ET"
+            android:layout_marginBottom="180dp"
+            android:layout_gravity="right|bottom" />
+
+    </FrameLayout>
+
+</LinearLayout>

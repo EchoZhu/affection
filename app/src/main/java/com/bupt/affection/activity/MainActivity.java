@@ -1,5 +1,9 @@
 package com.bupt.affection.activity;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -12,17 +16,27 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bupt.affection.R;
+import com.bupt.affection.common.PreferencesUtil;
+import com.bupt.affection.common.UserConfig;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener{
+
+    private TextView tv_username;
+    private View headView;
+    private ImageView iv_avatar;
+    private Dialog tipDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("亲情一系");
         setSupportActionBar(toolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -42,6 +56,35 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        headView = navigationView.getHeaderView(0);
+        initUI();
+    }
+
+    private void initUI() {
+        tv_username = (TextView) headView.findViewById(R.id.actv_username);
+        iv_avatar = (ImageView) headView.findViewById(R.id.iv_avatar);
+
+        iv_avatar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (null != PreferencesUtil.getString(getBaseContext(), UserConfig.MOBILE)) {
+                    tv_username.setText(PreferencesUtil.getString(getBaseContext(), UserConfig.MOBILE));
+                } else {
+                    startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                }
+            }
+        });
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (null != PreferencesUtil.getString(getBaseContext(), UserConfig.MOBILE)) {
+            tv_username.setText(PreferencesUtil.getString(getBaseContext(), UserConfig.MOBILE));
+        }else{
+            tv_username.setText(getString(R.string.action_touchtologin));
+        }
     }
 
     @Override
@@ -82,17 +125,30 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_switchtoother) {
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.nav_logout) {
+            tipDialog = new AlertDialog.Builder(MainActivity.this)
+                    .setMessage(getString(R.string.tip_logout))
+                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            PreferencesUtil.putString(getBaseContext(), UserConfig.MOBILE, null);
+                            startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                        }
+                    }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
 
-        } else if (id == R.id.nav_slideshow) {
+                        }
+                    }).create();
+            tipDialog.show();
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_finishapp) {
 
         } else if (id == R.id.nav_share) {
 
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_set) {
 
         }
 
@@ -100,4 +156,6 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
 }
