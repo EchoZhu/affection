@@ -19,11 +19,11 @@
         android:src="@android:drawable/sym_def_app_icon" />
 
     <TextView
-        android:id="@+id/tv_username"
+        android:id="@+id/actv_username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
-        android:text="点击头像登录"
+        android:text="@string/action_touchtologin"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
     <TextView
