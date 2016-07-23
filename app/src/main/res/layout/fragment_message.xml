@@ -16,81 +16,14 @@
         android:textSize="10pt"
         android:gravity="center"
         android:layout_gravity="center_horizontal|top" />
-    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_margin="1dip"
-        >
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:id="@+id/tv00"
-                android:text="饭菜不要加糖"
-                android:textColor="#000000"
-                android:singleLine="false"
-                android:padding="3dip"
-                android:layout_height="wrap_content"
-                android:layout_width="0dp"
-                android:layout_weight="23"/>
-            <TextView
-                android:id="@+id/tv01"
-                android:text="2016年7月6日"
-                android:textColor="#000000"
-                android:singleLine="true"
-                android:padding="3dip"
-                android:layout_marginRight="0dp"
-                android:layout_height="wrap_content"
-                android:layout_width="0dp"
-                android:layout_weight="10"/>
-        </TableRow>
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#aea594">
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="1dp"/>
-        </TableRow>
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:id="@+id/tv10"
-                android:text="老人最近睡眠不好，请晚上给他喝牛奶"
-                android:textColor="#000000"
-                android:singleLine="false"
-                android:padding="3dip"
-                android:layout_height="wrap_content"
-                android:layout_width="0dp"
-                android:layout_weight="23"/>
-            <TextView
-                android:id="@+id/tv11"
-                android:text="2016年7月5日"
-                android:textColor="#000000"
-                android:singleLine="true"
-                android:padding="3dip"
-                android:layout_marginRight="0dp"
-                android:layout_height="wrap_content"
-                android:layout_width="0dp"
-                android:layout_weight="10"/>
-        </TableRow>
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#aea594">
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="1dp"/>
-        </TableRow>
-    </TableLayout>
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="430dp">
-
+        android:layout_height="match_parent">
+        <ListView
+            android:id="@id/android:list"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:scrollbars="vertical"></ListView>
         <EditText
             android:id="@+id/ET"
             android:layout_width="match_parent"
@@ -110,7 +43,7 @@
             android:text="发送"
             android:id="@+id/button"
             android:layout_alignBottom="@id/ET"
-            android:layout_marginBottom="140dp"
+            android:layout_marginBottom="180dp"
             android:layout_gravity="right|bottom" />
 
     </FrameLayout>
