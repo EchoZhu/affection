@@ -1,12 +1,12 @@
 package com.bupt.affection.fragment;
 
-import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 
 import com.bupt.affection.R;
 
@@ -30,6 +30,8 @@ public class LocationFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
+
+    private WebView webView;
     public LocationFragment() {
         // Required empty public constructor
     }
@@ -50,6 +52,22 @@ public class LocationFragment extends Fragment {
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+//        webView = (WebView) view.findViewById(R.id.webView);
+//        WebSettings settings = webView.getSettings();
+//        settings.setJavaScriptEnabled(true);
+//        //支持缩放
+//        settings.setUseWideViewPort(true);//设定支持viewport
+//        settings.setLoadWithOverviewMode(true);
+//        settings.setBuiltInZoomControls(true);
+//        settings.setSupportZoom(true);//设定支持缩放
+//        webView.loadUrl("http://restapi.amap.com/v3/staticmap?location=116.481485,39.990464&zoom=10&size=750*300&markers=mid,,A:116.481485,39.990464&key=ee95e52bf08006f63fd29bcfbcf21df0");
+//        webView.loadUrl("cn.bing.com");
+
     }
 
     @Override
@@ -75,16 +93,16 @@ public class LocationFragment extends Fragment {
         }
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
+//    @Override
+//    public void onAttach(Context context) {
+//        super.onAttach(context);
+//        if (context instanceof OnFragmentInteractionListener) {
+//            mListener = (OnFragmentInteractionListener) context;
+//        } else {
+//            throw new RuntimeException(context.toString()
+//                    + " must implement OnFragmentInteractionListener");
+//        }
+//    }
 
     @Override
     public void onDetach() {
