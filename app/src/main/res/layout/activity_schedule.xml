@@ -251,6 +251,6 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="定位"/>
-        </LinearLayout>
     </LinearLayout>
 </LinearLayout>
+
