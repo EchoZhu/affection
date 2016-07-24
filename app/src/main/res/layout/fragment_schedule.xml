@@ -5,12 +5,9 @@
     tools:context="com.bupt.affection.fragment.ScheduleFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:orientation="vertical">
 
-        <LinearLayout
+
+    <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:layout_marginLeft="10dp"
@@ -227,6 +224,6 @@
                     android:padding="10dp"></RelativeLayout>
             </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
+    <!--</LinearLayout>-->
 
 </FrameLayout>

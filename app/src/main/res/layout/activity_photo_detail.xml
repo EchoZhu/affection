@@ -14,17 +14,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <RelativeLayout style="@style/rl_common_titleBar" >
 
-            <ImageView
-                android:id="@+id/iv_common_back"
-                style="@style/iv_common_back" />
-
-            <TextView
-                style="@style/tv_common_titleBar_title"
-                android:text="@string/photo" />
-
-        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
