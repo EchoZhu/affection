@@ -8,3 +8,11 @@
 /captures
 /.idea/misc.xml
 /.idea/modules.xml
+/.idea/gradle.xml
+/.idea/vcs.xml
+/build.gradle
+/gradle/wrapper/gradle-wrapper.properties
+
+
+
+
