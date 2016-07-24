@@ -4,6 +4,9 @@ android {
     compileSdkVersion 23
     buildToolsVersion "23.0.0"
 
+    packagingOptions{
+        exclude 'AndroidManifest.xml'
+    }
     defaultConfig {
         applicationId "com.bupt.affection"
         minSdkVersion 15
@@ -24,7 +27,5 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'com.android.support:design:23.1.1'
-    compile 'com.android.support:appcompat-v7:24.0.0'
-    compile 'com.android.support:support-v13:24.0.0'
     compile files('src/main/java/libs/cardview.jar')
 }

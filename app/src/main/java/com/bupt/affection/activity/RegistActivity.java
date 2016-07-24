@@ -4,7 +4,6 @@ import android.annotation.TargetApi;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.app.ProgressDialog;
 import android.content.CursorLoader;
-import android.content.Intent;
 import android.content.Loader;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -17,21 +16,16 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.bupt.affection.R;
 import com.bupt.affection.common.CommonUtil;
-import com.bupt.affection.common.PreferencesUtil;
-import com.bupt.affection.common.UserConfig;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +35,7 @@ import static android.Manifest.permission.READ_CONTACTS;
 /**
  * A login screen that offers login via email/password.
  */
-public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
+public class RegistActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
 
     /**
      * Id to identity READ_CONTACTS permission request.
@@ -61,39 +55,40 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private UserLoginTask mAuthTask = null;
 
     // UI references.
-    private AutoCompleteTextView actv_username;
+    private AutoCompleteTextView actv_username_regist;
     private EditText mPasswordView;
+    private EditText mPasswordView1;
     private View mLoginFormView;
-    private ProgressDialog progressDialog;
     private ImageView iv_common_back;
-    private TextView tv_regist;
+    private ProgressDialog progressDialog;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_regist);
         // Set up the login form.
-        actv_username = (AutoCompleteTextView) findViewById(R.id.actv_username);
+        actv_username_regist = (AutoCompleteTextView) findViewById(R.id.actv_username_regist);
         populateAutoComplete();
 
-        mPasswordView = (EditText) findViewById(R.id.et_password);
-        mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
-                if (id == R.id.login || id == EditorInfo.IME_NULL) {
-                    attemptLogin();
-                    return true;
-                }
-                return false;
-            }
-        });
+        mPasswordView = (EditText) findViewById(R.id.password);
+        mPasswordView1 = (EditText) findViewById(R.id.password1);
+//        mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+//            @Override
+//            public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
+//                if (id == R.id.login || id == EditorInfo.IME_NULL) {
+//                    attemptRegist();
+//                    return true;
+//                }
+//                return false;
+//            }
+//        });
 
-        Button btn_login = (Button) findViewById(R.id.btn_regist);
-        btn_login.setOnClickListener(new OnClickListener() {
+        Button btn_regist = (Button) findViewById(R.id.btn_regist);
+        btn_regist.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                attemptLogin();
+                attemptRegist();
             }
         });
 
@@ -105,17 +100,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 finish();
             }
         });
-        tv_regist = (TextView) findViewById(R.id.tv_regist);
-        tv_regist.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(LoginActivity.this,RegistActivity.class));
-            }
-        });
-
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
-        progressDialog.setMessage(getString(R.string.action_logining));
+        progressDialog.setMessage(getString(R.string.action_registing));
     }
 
     private void populateAutoComplete() {
@@ -134,7 +121,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             return true;
         }
         if (shouldShowRequestPermissionRationale(READ_CONTACTS)) {
-            Snackbar.make(actv_username, R.string.permission_rationale, Snackbar.LENGTH_INDEFINITE)
+            Snackbar.make(actv_username_regist, R.string.permission_rationale, Snackbar.LENGTH_INDEFINITE)
                     .setAction(android.R.string.ok, new View.OnClickListener() {
                         @Override
                         @TargetApi(Build.VERSION_CODES.M)
@@ -167,18 +154,19 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * If there are form errors (invalid email, missing fields, etc.), the
      * errors are presented and no actual login attempt is made.
      */
-    private void attemptLogin() {
+    private void attemptRegist() {
         if (mAuthTask != null) {
             return;
         }
 
         // Reset errors.
-        actv_username.setError(null);
+        actv_username_regist.setError(null);
         mPasswordView.setError(null);
 
         // Store values at the time of the login attempt.
-        String username = actv_username.getText().toString();
+        String username = actv_username_regist.getText().toString();
         String password = mPasswordView.getText().toString();
+        String password1 = mPasswordView1.getText().toString();
 
         boolean cancel = false;
         View focusView = null;
@@ -192,12 +180,16 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         // Check for a valid username address.
         if (TextUtils.isEmpty(username)) {
-            actv_username.setError(getString(R.string.error_field_required));
-            focusView = actv_username;
+            actv_username_regist.setError(getString(R.string.error_field_required));
+            focusView = actv_username_regist;
             cancel = true;
         } else if (!verifyUsername(username)) {
-            actv_username.setError(getString(R.string.error_invalid_email));
-            focusView = actv_username;
+            actv_username_regist.setError(getString(R.string.error_invalid_email));
+            focusView = actv_username_regist;
+            cancel = true;
+        } else if(!password.equals(password1)){
+            mPasswordView1.setError(getString(R.string.error_diff_password));
+            focusView = mPasswordView1;
             cancel = true;
         }
 
@@ -214,14 +206,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         }
     }
 
-    private boolean verifyUsername(String username) {
-        if (TextUtils.isEmpty(username) || username.length() != 11 || !CommonUtil.isMobileNumber(username)) {
-            CommonUtil.toast(getBaseContext(), "请输入正确手机号码");
-            return false;
-        }
-        return true;
-    }
-
     private boolean isEmailValid(String email) {
         //TODO: Replace this with your own logic
         return email.contains("@");
@@ -231,15 +215,19 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         //TODO: Replace this with your own logic
         return password.length() > 4;
     }
+    private boolean verifyUsername(String username) {
+        if (TextUtils.isEmpty(username) || username.length() != 11 || !CommonUtil.isMobileNumber(username)) {
+            CommonUtil.toast(getBaseContext(), "请输入正确手机号码");
+            return false;
+        }
+        return true;
+    }
 
     /**
      * Shows the progress UI and hides the login form.
      */
     @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
     private void showProgress(final boolean show) {
-        // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
-        // for very easy animations. If available, use these APIs to fade-in
-        // the progress spinner.
         if (show) {
             progressDialog.show();
         } else {
@@ -284,10 +272,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private void addEmailsToAutoComplete(List<String> emailAddressCollection) {
         //Create adapter to tell the AutoCompleteTextView what to show in its dropdown list.
         ArrayAdapter<String> adapter =
-                new ArrayAdapter<>(LoginActivity.this,
+                new ArrayAdapter<>(RegistActivity.this,
                         android.R.layout.simple_dropdown_item_1line, emailAddressCollection);
 
-        actv_username.setAdapter(adapter);
+        actv_username_regist.setAdapter(adapter);
     }
 
 
@@ -310,8 +298,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         private final String mUsername;
         private final String mPassword;
 
-        UserLoginTask(String username, String password) {
-            mUsername = username;
+        UserLoginTask(String email, String password) {
+            mUsername = email;
             mPassword = password;
         }
 
@@ -344,7 +332,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             showProgress(false);
 
             if (success) {
-                PreferencesUtil.putString(getBaseContext(), UserConfig.MOBILE,mUsername);
                 finish();
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));

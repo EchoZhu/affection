@@ -5,48 +5,45 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.bupt.affection.R;
+import com.bupt.affection.common.BaseActivity;
 import com.bupt.affection.common.PreferencesUtil;
 import com.bupt.affection.common.UserConfig;
 
-public class MainActivity extends AppCompatActivity
+public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener{
 
     private TextView tv_username;
     private View headView;
     private ImageView iv_avatar;
     private Dialog tipDialog;
+    private RadioButton rb_main_schedule;
+    private RadioButton rb_main_gallery;
+    private RadioButton rb_main_message;
+    private RadioButton rb_main_location;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("亲情一系");
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle(getString(R.string.rb_main_schedule));
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -74,7 +71,56 @@ public class MainActivity extends AppCompatActivity
                 }
             }
         });
+        rb_main_schedule = (RadioButton) findViewById(R.id.rb_main_schedule);
+        rb_main_gallery = (RadioButton) findViewById(R.id.rb_main_gallery);
+        rb_main_message = (RadioButton) findViewById(R.id.rb_main_message);
+        rb_main_location = (RadioButton) findViewById(R.id.rb_main_location);
 
+        rb_main_schedule.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setFragmentVisible(R.id.fg_main_schedule);
+                toolbar.setTitle(getString(R.string.rb_main_schedule));
+            }
+        });
+        rb_main_gallery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setFragmentVisible(R.id.fg_main_gallery);
+                toolbar.setTitle(getString(R.string.rb_main_gallery));
+            }
+        });
+        rb_main_message.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setFragmentVisible(R.id.fg_main_message);
+                toolbar.setTitle(getString(R.string.rb_main_message));
+            }
+        });
+        rb_main_location.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setFragmentVisible(R.id.fg_main_location);
+                toolbar.setTitle(getString(R.string.rb_main_location));
+            }
+        });
+
+        setFragmentVisible(R.id.fg_main_schedule);
+
+    }
+
+    private void setFragmentVisible(int selectedFragmentId) {
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        int[] ids = {R.id.fg_main_schedule, R.id.fg_main_gallery, R.id.fg_main_message};
+        for (int id : ids) {
+            Fragment fragment = getSupportFragmentManager().findFragmentById(id);
+            if (id == selectedFragmentId) {
+                fragmentTransaction.show(fragment);
+            } else {
+                fragmentTransaction.hide(fragment);
+            }
+        }
+        fragmentTransaction.commit();
     }
 
     @Override

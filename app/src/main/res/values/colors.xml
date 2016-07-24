@@ -5,4 +5,17 @@
     <color name="colorAccent">#FF4081</color>
 
     <color name="black_overlay">#66000000</color>
+
+    <color name="blue_dark">#32BFD8</color>
+    <color name="blue_dark_alpha_50">#8032BFD8</color>
+    <color name="blue_light">#A4EAF7</color>
+    <color name="blue_middle">#ADE1EC</color>
+    <color name="gray_text">#AAAAAA</color>
+    <color name="gray_background">#EEEEEE</color>
+    <color name="black">#666666</color>
+    <color name="yellow">#F8B638</color>
+    <color name="orange">#F86F3F</color>
+    <color name="cyan">#6aa9ef</color>
+    <color name="green">#31D89E</color>
+    <color name="red">#F54747</color>
 </resources>
