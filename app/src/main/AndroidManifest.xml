@@ -25,7 +25,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".activity.LoginActivity"
             android:label="@string/title_activity_login" />
@@ -33,7 +32,8 @@
         <activity android:name=".activity.PhotoDetailActivity" />
         <activity
             android:name=".activity.RegistActivity"
-            android:label="@string/title_activity_regist"></activity>
+            android:label="@string/title_activity_regist" />
+        <activity android:name=".activity.SetActivity"></activity>
     </application>
 
 </manifest>
