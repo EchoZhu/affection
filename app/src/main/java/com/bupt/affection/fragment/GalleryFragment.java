@@ -31,7 +31,6 @@ public class GalleryFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    private ListView listView;
     private GridView gridView;
     private List<Map<String,Object>>dataList;
 
@@ -77,7 +76,6 @@ public class GalleryFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_gallery,null);
-        listView = (ListView)view.findViewById(R.id.listview1);
         gridView = (GridView)view.findViewById(R.id.grid);
         init();
         return view;
@@ -96,17 +94,21 @@ public class GalleryFragment extends Fragment {
 //        }
 
     private void init() {
-        Map<String, Object> map = new HashMap<String, Object>();
         dataList = new ArrayList<Map<String, Object>>();
-        for (int i = 0; i < 20; i++) {
+        String[] date = {"2016.7.1","2016.7.2","2016.7.3","2016.7.4","2016.7.5","2016.7.6","2016.7.7","2016.7.8","2016.7.9","2016.7.10"};
+        for (int i = 0; i < date.length; i++) {
+            Map<String, Object> map = new HashMap<String, Object>();
             map.put("picture", R.drawable.ic_menu_gallery);
-            map.put("date", "2016年7月28号");
+            map.put("date", date[i]);
             dataList.add(map);
 
 //        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_list_item_1, map);
-            SimpleAdapter simp_adapter = new SimpleAdapter(getActivity(), dataList, R.layout.gallery_into, new String[]{"picture", "date"}, new int[]{R.id.picture, R.id.date});
-            gridView.setAdapter(simp_adapter);
+
         }
+
+        SimpleAdapter simp_adapter = new SimpleAdapter(getActivity(), dataList, R.layout.gallery_into, new String[]{"picture", "date"}, new int[]{R.id.picture, R.id.date});
+        gridView.setAdapter(simp_adapter);
+//        gridView.setOnItemClickListener();
     }
 
 

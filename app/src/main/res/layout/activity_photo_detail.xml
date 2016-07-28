@@ -35,12 +35,14 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:id="@+id/picture_detail"
                 android:layout_weight="0.2"
                 android:src="@drawable/ic_menu_gallery"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:id="@+id/date_detail"
                 android:text="照片相关信息"/>
         </LinearLayout>
 
