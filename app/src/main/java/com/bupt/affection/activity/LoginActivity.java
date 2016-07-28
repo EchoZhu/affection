@@ -27,11 +27,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVUser;
+import com.avos.avoscloud.LogInCallback;
 import com.bupt.affection.R;
 import com.bupt.affection.common.CommonUtil;
 import com.bupt.affection.common.PreferencesUtil;
 import com.bupt.affection.common.UserConfig;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -177,7 +183,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mPasswordView.setError(null);
 
         // Store values at the time of the login attempt.
-        String username = actv_username.getText().toString();
+        final String username = actv_username.getText().toString();
         String password = mPasswordView.getText().toString();
 
         boolean cancel = false;
@@ -209,8 +215,29 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true);
-            mAuthTask = new UserLoginTask(username, password);
-            mAuthTask.execute((Void) null);
+            AVUser.logInInBackground(username, password, new LogInCallback<AVUser>() {
+                @Override
+                public void done(AVUser avUser, AVException e) {
+                    showProgress(false);
+                    if (avUser != null){
+                        PreferencesUtil.putString(getBaseContext(), UserConfig.MOBILE,username);
+                        Toast.makeText(LoginActivity.this,getString(R.string.action_logining_successful),Toast.LENGTH_LONG).show();
+                        finish();
+                    }else {
+                        JsonObject returnData = new JsonParser().parse(e.getMessage()).getAsJsonObject();
+                        String code = returnData.get("code").toString();
+                        if (code == "1"){
+                            String msg = returnData.get("error").toString();
+                            Toast.makeText(LoginActivity.this,msg,Toast.LENGTH_LONG).show();
+                        }else{
+                             Toast.makeText(LoginActivity.this,getString(R.string.action_logining_fail),Toast.LENGTH_LONG).show();
+
+                        }
+                    }
+                }
+            });
+//            mAuthTask = new UserLoginTask(username, password);
+//            mAuthTask.execute((Void) null);
         }
     }
 
