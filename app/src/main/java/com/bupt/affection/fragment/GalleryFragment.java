@@ -6,8 +6,17 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.GridView;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
 
 import com.bupt.affection.R;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -22,6 +31,8 @@ public class GalleryFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private GridView gridView;
+    private List<Map<String,Object>>dataList;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -64,8 +75,42 @@ public class GalleryFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_gallery, container, false);
+        View view = inflater.inflate(R.layout.fragment_gallery,null);
+        gridView = (GridView)view.findViewById(R.id.grid);
+        init();
+        return view;
     }
+
+
+//    private void init() {
+//        List<String> items = new ArrayList<String>();
+//        for (int i = 0; i < 2; i++) {
+//            if(i == 0){
+//                items.add("课程表");
+//            }else{
+//                items.add("考试");
+//            }
+//
+//        }
+
+    private void init() {
+        dataList = new ArrayList<Map<String, Object>>();
+        String[] date = {"2016.7.1","2016.7.2","2016.7.3","2016.7.4","2016.7.5","2016.7.6","2016.7.7","2016.7.8","2016.7.9","2016.7.10"};
+        for (int i = 0; i < date.length; i++) {
+            Map<String, Object> map = new HashMap<String, Object>();
+            map.put("picture", R.drawable.ic_menu_gallery);
+            map.put("date", date[i]);
+            dataList.add(map);
+
+//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_list_item_1, map);
+
+        }
+
+        SimpleAdapter simp_adapter = new SimpleAdapter(getActivity(), dataList, R.layout.gallery_into, new String[]{"picture", "date"}, new int[]{R.id.picture, R.id.date});
+        gridView.setAdapter(simp_adapter);
+//        gridView.setOnItemClickListener();
+    }
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {

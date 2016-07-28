@@ -6,8 +6,16 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
 
 import com.bupt.affection.R;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -22,10 +30,13 @@ public class MessageFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private ListView listView;
+
 
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private List<Map<String,Object>> datalist;
 
     private OnFragmentInteractionListener mListener;
 
@@ -64,7 +75,26 @@ public class MessageFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_message, container, false);
+
+        View view = inflater.inflate(R.layout.fragment_message,null);
+        listView = (ListView)view.findViewById(R.id.list);
+        init();
+        return view;
+    }
+
+    public void init(){
+        String[] mess={"饭菜不要加糖","多喝热水"};
+        String[] datee={"2016年6月6日","2016年6月7日"};
+        datalist = new ArrayList<Map<String,Object>>();
+        for (int i = 0; i<mess.length; i++){
+            Map<String,Object>map = new HashMap<>();
+            map.put("mess", mess[i]);
+            map.put("datee", datee[i]);
+            datalist.add(map);
+        }
+        SimpleAdapter simpleAdapter=new SimpleAdapter(getActivity(),datalist,R.layout.message_list,new String[]{"mess","datee"},new int[]{R.id.textv1,R.id.textv2});
+        listView.setAdapter(simpleAdapter);
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event

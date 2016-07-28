@@ -8,35 +8,34 @@
     <!-- TODO: Update blank fragment layout -->
 
 
-    <FrameLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <ListView
-            android:id="@id/android:list"
+            android:id="@+id/list"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="350dp"
             android:scrollbars="vertical"></ListView>
         <EditText
             android:id="@+id/ET"
+            android:layout_below="@id/list"
             android:layout_width="match_parent"
             android:layout_height="170dp"
-            android:layout_gravity="center"
             android:layout_margin="2dip"
             android:textColorHint="#AAAAAA"
             android:textSize="15dip"
             android:paddingLeft="5dp"
             android:singleLine="true"
-            android:background="@drawable/text_view_border"
             android:hint="请输入留言..."/>
         <Button
             android:layout_width="102dp"
             android:layout_height="37dp"
+            style="@style/btn_common_blue"
             android:text="发送"
             android:id="@+id/button"
             android:layout_alignBottom="@id/ET"
-            android:layout_marginBottom="200dp"
-            android:layout_gravity="right|bottom" />
+            android:layout_alignRight="@id/ET" />
 
-    </FrameLayout>
+    </RelativeLayout>
 
 </LinearLayout>
