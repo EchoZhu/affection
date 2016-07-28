@@ -51,5 +51,6 @@
 
     <string name="album">相册</string>
     <string name="photo">照片</string>
+    <string name="title_activity_main2">Main2Activity</string>
 
 </resources>
