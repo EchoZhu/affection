@@ -51,6 +51,12 @@
 
     <string name="album">相册</string>
     <string name="photo">照片</string>
+<<<<<<< HEAD
     <string name="title_activity_main2">Main2Activity</string>
+=======
+    <string name="action_register_successful">注册成功</string>
+    <string name="action_logining_successful">登录成功</string>
+    <string name="action_logining_fail">登录失败:用户或者密码错误</string>
+>>>>>>> 05771919cf21d1a7a78f10d72ff5ef6c65315c2d
 
 </resources>

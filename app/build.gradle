@@ -6,6 +6,11 @@ android {
 
     packagingOptions{
         exclude 'AndroidManifest.xml'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+    }
+    lintOptions {
+        abortOnError false
     }
     defaultConfig {
         applicationId "com.bupt.affection"
@@ -23,9 +28,21 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'com.android.support:design:23.1.1'
     compile files('src/main/java/libs/cardview.jar')
+    compile files('src/main/java/libs/avoscloud-statistics-v3.14.1.jar')
+    compile files('src/main/java/libs/fastjson.jar')
+    compile files('src/main/java/libs/httpmime-4.2.4.jar')
+    compile files('src/main/java/libs/Java-WebSocket-1.3.2-leancloud.jar')
+    compile files('src/main/java/libs/okhttp-2.6.0-leancloud.jar')
+    compile files('src/main/java/libs/okio-1.6.0-leancloud.jar')
+    compile files('src/main/java/libs/protobuf-java-2.6.1.jar')
+    compile files('src/main/java/libs/qq.sdk.1.6.1.jar')
+    compile files('src/main/java/libs/weibo.sdk.android.sso.3.0.1-leancloud.jar')
+    compile files('src/main/java/libs/avoscloud-sdk-v3.14.1.jar')
+    compile files('src/main/java/libs/avoscloud-push-v3.14.1.jar')
+    compile files('src/main/java/libs/gson-2.2.4.jar')
 }

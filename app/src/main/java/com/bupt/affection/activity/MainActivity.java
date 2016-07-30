@@ -19,6 +19,8 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import com.avos.avoscloud.AVOSCloud;
+import com.avos.avoscloud.AVUser;
 import com.bupt.affection.R;
 import com.bupt.affection.common.BaseActivity;
 import com.bupt.affection.common.PreferencesUtil;
@@ -41,6 +43,7 @@ public class MainActivity extends BaseActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        initLeanCloud();
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle(getString(R.string.rb_main_schedule));
         setSupportActionBar(toolbar);
@@ -55,6 +58,11 @@ public class MainActivity extends BaseActivity
         navigationView.setNavigationItemSelectedListener(this);
         headView = navigationView.getHeaderView(0);
         initUI();
+    }
+
+    private void initLeanCloud() {
+        // 初始化参数依次为 this, AppId, AppKey
+        AVOSCloud.initialize(this,"48X5CbKCMh8qdAutJpkFNTr7-gzGzoHsz","kbhPFjfDTyXknMlD9MFuXsC0");
     }
 
     private void initUI() {
@@ -111,7 +119,7 @@ public class MainActivity extends BaseActivity
 
     private void setFragmentVisible(int selectedFragmentId) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        int[] ids = {R.id.fg_main_schedule, R.id.fg_main_gallery, R.id.fg_main_message};
+        int[] ids = {R.id.fg_main_schedule, R.id.fg_main_gallery, R.id.fg_main_message,R.id.fg_main_location};
         for (int id : ids) {
             Fragment fragment = getSupportFragmentManager().findFragmentById(id);
             if (id == selectedFragmentId) {
@@ -180,6 +188,7 @@ public class MainActivity extends BaseActivity
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             PreferencesUtil.putString(getBaseContext(), UserConfig.MOBILE, null);
+                            AVUser.logOut();
                             startActivity(new Intent(MainActivity.this, LoginActivity.class));
                         }
                     }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
@@ -188,7 +197,11 @@ public class MainActivity extends BaseActivity
 
                         }
                     }).create();
-            tipDialog.show();
+            if (null != PreferencesUtil.getString(getBaseContext(), UserConfig.MOBILE)) {
+                tipDialog.show();
+            }else{
+                startActivity(new Intent(MainActivity.this,LoginActivity.class));
+            }
 
         } else if (id == R.id.nav_finishapp) {
 

@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.app.ProgressDialog;
 import android.content.CursorLoader;
+import android.content.Intent;
 import android.content.Loader;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -23,7 +24,11 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVUser;
+import com.avos.avoscloud.SignUpCallback;
 import com.bupt.affection.R;
 import com.bupt.affection.common.CommonUtil;
 
@@ -171,6 +176,8 @@ public class RegistActivity extends AppCompatActivity implements LoaderCallbacks
         boolean cancel = false;
         View focusView = null;
 
+        AVUser nUser = new AVUser();
+
         // Check for a valid password, if the user entered one.
         if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
             mPasswordView.setError(getString(R.string.error_invalid_password));
@@ -187,7 +194,7 @@ public class RegistActivity extends AppCompatActivity implements LoaderCallbacks
             actv_username_regist.setError(getString(R.string.error_invalid_email));
             focusView = actv_username_regist;
             cancel = true;
-        } else if(!password.equals(password1)){
+        } else if (!password.equals(password1)) {
             mPasswordView1.setError(getString(R.string.error_diff_password));
             focusView = mPasswordView1;
             cancel = true;
@@ -201,8 +208,24 @@ public class RegistActivity extends AppCompatActivity implements LoaderCallbacks
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true);
-            mAuthTask = new UserLoginTask(username, password);
-            mAuthTask.execute((Void) null);
+            nUser.setUsername(username);
+            nUser.setPassword(password);
+
+            nUser.signUpInBackground(new SignUpCallback() {
+                @Override
+                public void done(AVException e) {
+                    if (e == null){
+                        showProgress(false);
+                        Toast.makeText(RegistActivity.this,getString(R.string.action_register_successful),Toast.LENGTH_LONG).show();
+                        startActivity(new Intent(RegistActivity.this,LoginActivity.class));
+                        finish();
+                    }else {
+                        Toast.makeText(RegistActivity.this,e.getMessage(),Toast.LENGTH_LONG).show();
+                    }
+                }
+            });
+//            mAuthTask = new UserLoginTask(username, password);
+//            mAuthTask.execute((Void) null);
         }
     }
 
@@ -215,6 +238,7 @@ public class RegistActivity extends AppCompatActivity implements LoaderCallbacks
         //TODO: Replace this with your own logic
         return password.length() > 4;
     }
+
     private boolean verifyUsername(String username) {
         if (TextUtils.isEmpty(username) || username.length() != 11 || !CommonUtil.isMobileNumber(username)) {
             CommonUtil.toast(getBaseContext(), "请输入正确手机号码");
@@ -307,20 +331,21 @@ public class RegistActivity extends AppCompatActivity implements LoaderCallbacks
         protected Boolean doInBackground(Void... params) {
             // TODO: attempt authentication against a network service.
 
-            try {
-                // Simulate network access.
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                return false;
-            }
+//            try {
+//                // Simulate network access.
+//                Thread.sleep(2000);
+//            } catch (InterruptedException e) {
+//                return false;
+//            }
+//
+//            for (String credential : DUMMY_CREDENTIALS) {
+//                String[] pieces = credential.split(":");
+//                if (pieces[0].equals(mUsername)) {
+//                    // Account exists, return true if the password matches.
+//                    return pieces[1].equals(mPassword);
+//                }
+//            }
 
-            for (String credential : DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(mUsername)) {
-                    // Account exists, return true if the password matches.
-                    return pieces[1].equals(mPassword);
-                }
-            }
 
             // TODO: register the new account here.
             return true;
