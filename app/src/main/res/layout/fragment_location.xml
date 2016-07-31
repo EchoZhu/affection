@@ -5,10 +5,15 @@
     tools:context="com.bupt.affection.fragment.LocationFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <!--<WebView-->
-        <!--android:id="@+id/webView"-->
+    <WebView
+        android:id="@+id/webView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </WebView>
+    <!--<com.amap.api.maps.MapView-->
+        <!--android:id="@+id/map"-->
         <!--android:layout_width="match_parent"-->
         <!--android:layout_height="match_parent">-->
-    <!--</WebView>-->
+    <!--</com.amap.api.maps.MapView>-->
 
 </FrameLayout>

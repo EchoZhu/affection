@@ -45,4 +45,5 @@ dependencies {
     compile files('src/main/java/libs/avoscloud-sdk-v3.14.1.jar')
     compile files('src/main/java/libs/avoscloud-push-v3.14.1.jar')
     compile files('src/main/java/libs/gson-2.2.4.jar')
+    compile files('src/main/java/libs/AMap2DMap_2.9.0_AMapLocation_2.6.0_20160628.jar')
 }

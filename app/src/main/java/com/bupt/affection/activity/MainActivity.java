@@ -23,6 +23,7 @@ import com.avos.avoscloud.AVOSCloud;
 import com.avos.avoscloud.AVUser;
 import com.bupt.affection.R;
 import com.bupt.affection.common.BaseActivity;
+import com.bupt.affection.common.CommonUtil;
 import com.bupt.affection.common.PreferencesUtil;
 import com.bupt.affection.common.UserConfig;
 
@@ -58,7 +59,21 @@ public class MainActivity extends BaseActivity
         navigationView.setNavigationItemSelectedListener(this);
         headView = navigationView.getHeaderView(0);
         initUI();
+        //增加一个类，ScheduleShow，存储没有登录的时候日程的信息
+//        addLeanCloudData();
     }
+
+//    private void addLeanCloudData() {
+//        AVObject scheduleShow = new AVObject("ScheduleShow");// 构建对象
+//        String foods[] = {"西红柿炒鸡蛋","牛奶","油饼","凉拌三丝"};
+//        String acts[] = {"打桥牌","跳广场舞","京剧演出","散步"};
+//        String sleeps[] = {"睡眠状况良好","午睡时间适中","无瞌睡状况"};
+//        scheduleShow.put("food", foods);
+//        scheduleShow.put("act", acts);
+//        scheduleShow.put("sleep", sleeps);
+//        scheduleShow.put("priority", 1);// 设置优先级
+//        scheduleShow.saveInBackground();// 保存到服务端
+//    }
 
     private void initLeanCloud() {
         // 初始化参数依次为 this, AppId, AppKey
@@ -87,29 +102,49 @@ public class MainActivity extends BaseActivity
         rb_main_schedule.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setFragmentVisible(R.id.fg_main_schedule);
-                toolbar.setTitle(getString(R.string.rb_main_schedule));
+                if (CommonUtil.loginStatus(getBaseContext())){
+                    setFragmentVisible(R.id.fg_main_schedule);
+                    toolbar.setTitle(getString(R.string.rb_main_schedule));
+                }else{
+
+                }
+
             }
         });
         rb_main_gallery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setFragmentVisible(R.id.fg_main_gallery);
-                toolbar.setTitle(getString(R.string.rb_main_gallery));
+                if(CommonUtil.loginStatus(getBaseContext())){
+                    setFragmentVisible(R.id.fg_main_gallery);
+                    toolbar.setTitle(getString(R.string.rb_main_gallery));
+                }else{
+                    startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                }
+
             }
         });
         rb_main_message.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setFragmentVisible(R.id.fg_main_message);
-                toolbar.setTitle(getString(R.string.rb_main_message));
+                if(CommonUtil.loginStatus(getBaseContext())){
+                    setFragmentVisible(R.id.fg_main_message);
+                    toolbar.setTitle(getString(R.string.rb_main_message));
+                }else{
+                    startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                }
+
             }
         });
         rb_main_location.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setFragmentVisible(R.id.fg_main_location);
-                toolbar.setTitle(getString(R.string.rb_main_location));
+                if(CommonUtil.loginStatus(getBaseContext())){
+                    setFragmentVisible(R.id.fg_main_location);
+                    toolbar.setTitle(getString(R.string.rb_main_location));
+                }else{
+                    startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                }
+
             }
         });
 
