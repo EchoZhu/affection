@@ -19,7 +19,8 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
-import com.avos.avoscloud.AVOSCloud;
+import com.alibaba.fastjson.JSONObject;
+import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVUser;
 import com.bupt.affection.R;
 import com.bupt.affection.common.BaseActivity;
@@ -44,7 +45,6 @@ public class MainActivity extends BaseActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        initLeanCloud();
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle(getString(R.string.rb_main_schedule));
         setSupportActionBar(toolbar);
@@ -60,24 +60,38 @@ public class MainActivity extends BaseActivity
         headView = navigationView.getHeaderView(0);
         initUI();
         //增加一个类，ScheduleShow，存储没有登录的时候日程的信息
-//        addLeanCloudData();
+        addLeanCloudData();
     }
 
-//    private void addLeanCloudData() {
-//        AVObject scheduleShow = new AVObject("ScheduleShow");// 构建对象
+    private void addLeanCloudData() {
+        AVObject scheduleShow = new AVObject("ScheduleWithoutLogin");// 构建对象
 //        String foods[] = {"西红柿炒鸡蛋","牛奶","油饼","凉拌三丝"};
 //        String acts[] = {"打桥牌","跳广场舞","京剧演出","散步"};
 //        String sleeps[] = {"睡眠状况良好","午睡时间适中","无瞌睡状况"};
 //        scheduleShow.put("food", foods);
 //        scheduleShow.put("act", acts);
-//        scheduleShow.put("sleep", sleeps);
-//        scheduleShow.put("priority", 1);// 设置优先级
-//        scheduleShow.saveInBackground();// 保存到服务端
-//    }
 
-    private void initLeanCloud() {
-        // 初始化参数依次为 this, AppId, AppKey
-        AVOSCloud.initialize(this,"48X5CbKCMh8qdAutJpkFNTr7-gzGzoHsz","kbhPFjfDTyXknMlD9MFuXsC0");
+        JSONObject foodObject = new JSONObject();
+        foodObject.put("food_1","西红柿炒鸡蛋");
+        foodObject.put("food_2","牛奶");
+        foodObject.put("food_3","凉拌三丝");
+
+        JSONObject actObject = new JSONObject();
+        actObject.put("act_1","打桥牌");
+        actObject.put("act_2","跳广场舞");
+        actObject.put("act_3","京剧演出");
+
+        JSONObject sleepObject = new JSONObject();
+        sleepObject.put("sleep_1","睡眠状况良好");
+        sleepObject.put("sleep_2","午睡时间适中");
+        sleepObject.put("sleep_3","无瞌睡状况");
+
+        scheduleShow.put("food", foodObject);
+        scheduleShow.put("act", actObject);
+        scheduleShow.put("sleep", sleepObject);
+
+        scheduleShow.put("priority", 1);// 设置优先级
+        scheduleShow.saveInBackground();// 保存到服务端
     }
 
     private void initUI() {
