@@ -20,7 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
         android:orientation="horizontal"
-        android:layout_margin="10dp">
+        android:layout_margin="0dp">
         <LinearLayout
             android:id="@+id/ll_left"
             android:layout_width="fill_parent"
@@ -30,31 +30,35 @@
             <TextView
                 android:id="@+id/meal"
                 android:layout_width="fill_parent"
-                android:layout_height="0dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="饮食"
-                android:gravity="center"/>
+                android:gravity="center"
+                android:background="@drawable/setbar_bg"/>
             <TextView
                 android:id="@+id/entertainment"
                 android:layout_width="fill_parent"
-                android:layout_height="0dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="休闲活动"
-                android:gravity="center"/>
+                android:gravity="center"
+                android:background="@drawable/setbar_bg"/>
             <TextView
                 android:id="@+id/sleep"
                 android:layout_width="fill_parent"
-                android:layout_height="0dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="睡眠"
-                android:gravity="center"/>
+                android:gravity="center"
+                android:background="@drawable/setbar_bg"/>
             <TextView
                 android:id="@+id/health"
                 android:layout_width="fill_parent"
-                android:layout_height="0dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="健康"
-                android:gravity="center"/>
+                android:gravity="center"
+                android:background="@drawable/setbar_bg"/>
         </LinearLayout>
         <LinearLayout
             android:id="@+id/ll_right"

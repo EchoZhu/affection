@@ -48,6 +48,7 @@ public class MainActivity extends BaseActivity
         toolbar.setTitle(getString(R.string.rb_main_schedule));
         setSupportActionBar(toolbar);
 
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
