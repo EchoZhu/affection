@@ -9,8 +9,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVObject;
+import com.avos.avoscloud.AVQuery;
+import com.avos.avoscloud.GetCallback;
 import com.bupt.affection.R;
 import com.bupt.affection.activity.ScheduleActivity;
+import com.bupt.affection.common.CommonUtil;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,6 +37,14 @@ public class ScheduleFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private TextView food_1, food_2, food_3;
+    private TextView act_1, act_2, act_3;
+    private TextView sleep_1, sleep_2, sleep_3;
+    private String foods[];
+    private String acts[];
+    private String sleeps[];
+
 
     private OnFragmentInteractionListener mListener;
 
@@ -61,14 +77,15 @@ public class ScheduleFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view=inflater.inflate(R.layout.fragment_schedule,container,false);
-        TextView textView_meal= (TextView) view.findViewById(R.id.meal);
+        View view = inflater.inflate(R.layout.fragment_schedule, container, false);
+        TextView textView_meal = (TextView) view.findViewById(R.id.meal);
         textView_meal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,34 +93,92 @@ public class ScheduleFragment extends Fragment {
                 startActivity(intent);
             }
         });
-        TextView textView_entertainment = (TextView)  view.findViewById(R.id.entertainment);
-        textView_entertainment.setOnClickListener(new View.OnClickListener(){
+        TextView textView_entertainment = (TextView) view.findViewById(R.id.entertainment);
+        textView_entertainment.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
-                Intent intent = new Intent(getActivity(),ScheduleActivity.class);
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), ScheduleActivity.class);
                 startActivity(intent);
             }
         });
-        TextView textView_sleep = (TextView)  view.findViewById(R.id.sleep);
-        textView_sleep.setOnClickListener(new View.OnClickListener(){
+        TextView textView_sleep = (TextView) view.findViewById(R.id.sleep);
+        textView_sleep.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
-                Intent intent = new Intent(getActivity(),ScheduleActivity.class);
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), ScheduleActivity.class);
                 startActivity(intent);
             }
         });
-        TextView textView_health = (TextView)  view.findViewById(R.id.health);
-        textView_health.setOnClickListener(new View.OnClickListener(){
+        TextView textView_health = (TextView) view.findViewById(R.id.health);
+        textView_health.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
-                Intent intent = new Intent(getActivity(),ScheduleActivity.class);
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), ScheduleActivity.class);
                 startActivity(intent);
             }
         });
+        food_1 = (TextView) view.findViewById(R.id.food_1);
+        food_2 = (TextView) view.findViewById(R.id.food_2);
+        food_3 = (TextView) view.findViewById(R.id.food_3);
+
+        act_1 = (TextView) view.findViewById(R.id.fun_1);
+        act_2 = (TextView) view.findViewById(R.id.fun_2);
+        act_3 = (TextView) view.findViewById(R.id.fun_3);
+
+        sleep_1 = (TextView) view.findViewById(R.id.sleep_1);
+        sleep_2 = (TextView) view.findViewById(R.id.sleep_2);
+        sleep_3 = (TextView) view.findViewById(R.id.sleep_3);
 
 
         return view;
-      //  return inflater.inflate(R.layout.fragment_schedule, container, false);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (CommonUtil.loginStatus(getActivity())) {
+
+        } else {
+            //未登录时查看指定未登录数据
+            AVQuery<AVObject> avQuery = new AVQuery<>("ScheduleWithoutLogin");
+            avQuery.getInBackground("579f8123d342d3005724de1e", new GetCallback<AVObject>() {
+                @Override
+                public void done(AVObject avObject, AVException e) {
+                    Map<String, String> foodMap = new HashMap<String, String>();
+                    Map<String, String> actMap = new HashMap<String, String>();
+                    Map<String, String> sleepMap = new HashMap<String, String>();
+
+                    foodMap = (Map<String, String>) avObject.get("food");
+                    String food1 = foodMap.get("food_1").toString();
+                    String food2 = foodMap.get("food_2").toString();
+                    String food3 = foodMap.get("food_3").toString();
+
+                    actMap = (Map<String, String>) avObject.get("act");
+                    String act1 = actMap.get("act_1").toString();
+                    String act2 = actMap.get("act_2").toString();
+                    String act3 = actMap.get("act_3").toString();
+
+                    sleepMap = (Map<String, String>) avObject.get("sleep");
+                    String sleep1 = sleepMap.get("sleep_1").toString();
+                    String sleep2 = sleepMap.get("sleep_2").toString();
+                    String sleep3 = sleepMap.get("sleep_3").toString();
+
+
+                    food_1.setText(food1);
+                    food_2.setText(food2);
+                    food_3.setText(food3);
+
+                    act_1.setText(act1);
+                    act_2.setText(act2);
+                    act_3.setText(act3);
+
+                    sleep_1.setText(sleep1);
+                    sleep_2.setText(sleep2);
+                    sleep_3.setText(sleep3);
+                }
+            });
+        }
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -119,22 +194,6 @@ public class ScheduleFragment extends Fragment {
         super.onDetach();
         mListener = null;
     }
-
-   /* @Override
-    public View onCreateView(LayoutInflater inflater,ViewGroup container,
-                             Bundle savedInstanceState){
-        View view=inflater.inflate(R.layout.fragment_schedule,null);
-        TextView textView_meal=view.findViewById(R.id.meal);
-        textView_meal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), ScheduleActivity.class);
-                startActivity(intent);
-            }
-        }{
-
-        });
-    }*/
 
     /**
      * This interface must be implemented by activities that contain this

@@ -42,5 +42,11 @@ public class CommonUtil {
         }
         return true;
     }
+    public static boolean loginStatus(Context context){
+        if (null != PreferencesUtil.getString(context,UserConfig.MOBILE))
+            return true;
+        else
+            return false;
+    }
 
 }

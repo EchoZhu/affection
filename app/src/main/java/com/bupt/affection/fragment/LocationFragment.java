@@ -6,9 +6,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 
 import com.bupt.affection.R;
+import com.bupt.affection.common.AppConfig;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -32,6 +34,9 @@ public class LocationFragment extends Fragment {
 
 
     private WebView webView;
+//    private MapView mMapView = null;
+//    private AMap aMap;
+
     public LocationFragment() {
         // Required empty public constructor
     }
@@ -57,16 +62,28 @@ public class LocationFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-//        webView = (WebView) view.findViewById(R.id.webView);
-//        WebSettings settings = webView.getSettings();
-//        settings.setJavaScriptEnabled(true);
+        webView = (WebView) view.findViewById(R.id.webView);
+        WebSettings settings = webView.getSettings();
+        settings.setJavaScriptEnabled(true);
 //        //支持缩放
-//        settings.setUseWideViewPort(true);//设定支持viewport
-//        settings.setLoadWithOverviewMode(true);
-//        settings.setBuiltInZoomControls(true);
-//        settings.setSupportZoom(true);//设定支持缩放
+        settings.setUseWideViewPort(true);//设定支持viewport
+        settings.setLoadWithOverviewMode(true);
+        settings.setBuiltInZoomControls(true);
+        settings.setSupportZoom(true);//设定支持缩放
 //        webView.loadUrl("http://restapi.amap.com/v3/staticmap?location=116.481485,39.990464&zoom=10&size=750*300&markers=mid,,A:116.481485,39.990464&key=ee95e52bf08006f63fd29bcfbcf21df0");
-//        webView.loadUrl("cn.bing.com");
+
+//        mMapView = (MapView) view.findViewById(R.id.map);
+//        AMap aMap = mMapView.getMap();
+//        aMap.setMapType(AMap.MAP_TYPE_NORMAL);
+        String width = "550";
+        String height = "1400";
+        String longitude = "116.355932";
+        String latitude = "39.963201";
+        webView.loadUrl(
+                "http://restapi.amap.com/v3/staticmap?location="+longitude+","+latitude+
+                "&zoom=10&size="+width+"*"+height+
+                "&markers=mid,,A:"+longitude+","+latitude+
+                        "&key="+ AppConfig.AMAP_KEY);
 
     }
 
@@ -83,7 +100,7 @@ public class LocationFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_schedule, container, false);
+        return inflater.inflate(R.layout.fragment_location, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -109,6 +126,7 @@ public class LocationFragment extends Fragment {
         super.onDetach();
         mListener = null;
     }
+
 
     /**
      * This interface must be implemented by activities that contain this
