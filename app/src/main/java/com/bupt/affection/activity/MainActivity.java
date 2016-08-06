@@ -18,18 +18,24 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.alibaba.fastjson.JSONObject;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVUser;
+import com.avos.avoscloud.feedback.FeedbackAgent;
 import com.bupt.affection.R;
 import com.bupt.affection.common.BaseActivity;
 import com.bupt.affection.common.CommonUtil;
 import com.bupt.affection.common.PreferencesUtil;
 import com.bupt.affection.common.UserConfig;
+import com.orhanobut.logger.Logger;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends BaseActivity
-        implements NavigationView.OnNavigationItemSelectedListener{
+        implements NavigationView.OnNavigationItemSelectedListener {
 
     private TextView tv_username;
     private View headView;
@@ -37,7 +43,7 @@ public class MainActivity extends BaseActivity
     private Dialog tipDialog;
     private RadioButton rb_main_schedule;
     private RadioButton rb_main_gallery;
-    private RadioButton rb_main_message;
+//    private RadioButton rb_main_message;
     private RadioButton rb_main_location;
     private Toolbar toolbar;
 
@@ -59,12 +65,12 @@ public class MainActivity extends BaseActivity
         navigationView.setNavigationItemSelectedListener(this);
         headView = navigationView.getHeaderView(0);
         initUI();
-        //增加一个类，ScheduleShow，存储没有登录的时候日程的信息
-        addLeanCloudData();
+
+
     }
 
     private void addLeanCloudData() {
-        AVObject scheduleShow = new AVObject("ScheduleWithoutLogin");// 构建对象
+        AVObject Parents = new AVObject("Parents");// 构建对象
 //        String foods[] = {"西红柿炒鸡蛋","牛奶","油饼","凉拌三丝"};
 //        String acts[] = {"打桥牌","跳广场舞","京剧演出","散步"};
 //        String sleeps[] = {"睡眠状况良好","午睡时间适中","无瞌睡状况"};
@@ -72,26 +78,41 @@ public class MainActivity extends BaseActivity
 //        scheduleShow.put("act", acts);
 
         JSONObject foodObject = new JSONObject();
-        foodObject.put("food_1","西红柿炒鸡蛋");
-        foodObject.put("food_2","牛奶");
-        foodObject.put("food_3","凉拌三丝");
+        foodObject.put("food_1", "炒菜花");
+        foodObject.put("food_2", "豆腐");
+        foodObject.put("food_3", "凉拌三丝");
 
         JSONObject actObject = new JSONObject();
-        actObject.put("act_1","打桥牌");
-        actObject.put("act_2","跳广场舞");
-        actObject.put("act_3","京剧演出");
+        actObject.put("act_1", "散步");
+        actObject.put("act_2", "跳广场舞");
+        actObject.put("act_3", "京剧演出");
 
         JSONObject sleepObject = new JSONObject();
-        sleepObject.put("sleep_1","睡眠状况良好");
-        sleepObject.put("sleep_2","午睡时间适中");
-        sleepObject.put("sleep_3","无瞌睡状况");
+        sleepObject.put("sleep_1", "睡眠状况良好");
+        sleepObject.put("sleep_2", "午睡时间适中");
+        sleepObject.put("sleep_3", "无瞌睡状况");
 
-        scheduleShow.put("food", foodObject);
-        scheduleShow.put("act", actObject);
-        scheduleShow.put("sleep", sleepObject);
+        JSONObject picObject = new JSONObject();
+        picObject.put("pic_1", "http://ww3.sinaimg.cn/mw690/49a565f3jw1f6ju4fx2vnj21jk13dn8w.jpg");
+        picObject.put("pic_2", "http://ww2.sinaimg.cn/mw690/49a565f3jw1f6ju4hqrbej21jk10349g.jpg");
+        picObject.put("pic_3", "http://ww4.sinaimg.cn/mw690/49a565f3jw1f6ju4jj6ixj21jk1127fl.jpg");
 
-        scheduleShow.put("priority", 1);// 设置优先级
-        scheduleShow.saveInBackground();// 保存到服务端
+        List<String> msgList = new ArrayList<>();
+        msgList.add("这是第一条消息");
+        msgList.add("这是第二条消息");
+        msgList.add("这是第三条消息");
+
+        Parents.put("food", foodObject);
+        Parents.put("act", actObject);
+        Parents.put("sleep", sleepObject);
+        Parents.put("pic", picObject);
+        Parents.put("message", msgList);
+
+        Parents.put("priority", 1);// 设置优先级
+        Parents.put("children", "18801253526");// 设置子女账号
+        Parents.put("nurse", "18801253526");// 设置护工账号
+        Parents.put("name", "王大爷");//设置老人姓名
+        Parents.saveInBackground();// 保存到服务端
     }
 
     private void initUI() {
@@ -110,16 +131,16 @@ public class MainActivity extends BaseActivity
         });
         rb_main_schedule = (RadioButton) findViewById(R.id.rb_main_schedule);
         rb_main_gallery = (RadioButton) findViewById(R.id.rb_main_gallery);
-        rb_main_message = (RadioButton) findViewById(R.id.rb_main_message);
+//        rb_main_message = (RadioButton) findViewById(R.id.rb_main_message);
         rb_main_location = (RadioButton) findViewById(R.id.rb_main_location);
 
         rb_main_schedule.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (CommonUtil.loginStatus(getBaseContext())){
+                if (CommonUtil.loginStatus(getBaseContext())) {
                     setFragmentVisible(R.id.fg_main_schedule);
                     toolbar.setTitle(getString(R.string.rb_main_schedule));
-                }else{
+                } else {
 
                 }
 
@@ -128,34 +149,34 @@ public class MainActivity extends BaseActivity
         rb_main_gallery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(CommonUtil.loginStatus(getBaseContext())){
+                if (CommonUtil.loginStatus(getBaseContext())) {
                     setFragmentVisible(R.id.fg_main_gallery);
                     toolbar.setTitle(getString(R.string.rb_main_gallery));
-                }else{
+                } else {
                     startActivity(new Intent(MainActivity.this, LoginActivity.class));
                 }
 
             }
         });
-        rb_main_message.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(CommonUtil.loginStatus(getBaseContext())){
-                    setFragmentVisible(R.id.fg_main_message);
-                    toolbar.setTitle(getString(R.string.rb_main_message));
-                }else{
-                    startActivity(new Intent(MainActivity.this, LoginActivity.class));
-                }
-
-            }
-        });
+//        rb_main_message.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (CommonUtil.loginStatus(getBaseContext())) {
+//                    setFragmentVisible(R.id.fg_main_message);
+//                    toolbar.setTitle(getString(R.string.rb_main_message));
+//                } else {
+//                    startActivity(new Intent(MainActivity.this, LoginActivity.class));
+//                }
+//
+//            }
+//        });
         rb_main_location.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(CommonUtil.loginStatus(getBaseContext())){
+                if (CommonUtil.loginStatus(getBaseContext())) {
                     setFragmentVisible(R.id.fg_main_location);
                     toolbar.setTitle(getString(R.string.rb_main_location));
-                }else{
+                } else {
                     startActivity(new Intent(MainActivity.this, LoginActivity.class));
                 }
 
@@ -163,12 +184,12 @@ public class MainActivity extends BaseActivity
         });
 
         setFragmentVisible(R.id.fg_main_schedule);
-
+        Logger.init("logger");
     }
 
     private void setFragmentVisible(int selectedFragmentId) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        int[] ids = {R.id.fg_main_schedule, R.id.fg_main_gallery, R.id.fg_main_message,R.id.fg_main_location};
+        int[] ids = {R.id.fg_main_schedule, R.id.fg_main_gallery, R.id.fg_main_location};
         for (int id : ids) {
             Fragment fragment = getSupportFragmentManager().findFragmentById(id);
             if (id == selectedFragmentId) {
@@ -185,7 +206,7 @@ public class MainActivity extends BaseActivity
         super.onResume();
         if (null != PreferencesUtil.getString(getBaseContext(), UserConfig.MOBILE)) {
             tv_username.setText(PreferencesUtil.getString(getBaseContext(), UserConfig.MOBILE));
-        }else{
+        } else {
             tv_username.setText(getString(R.string.action_touchtologin));
         }
     }
@@ -216,8 +237,11 @@ public class MainActivity extends BaseActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            //增加一个类，ScheduleShow，存储没有登录的时候日程的信息
+            addLeanCloudData();
             return true;
         }
+
 
         return super.onOptionsItemSelected(item);
     }
@@ -228,8 +252,19 @@ public class MainActivity extends BaseActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_switchtoother) {
-            // Handle the camera action
+        if (id == R.id.nav_bindparent) {
+            if (null != PreferencesUtil.getString(getBaseContext(), UserConfig.MOBILE)) {
+                if (null != PreferencesUtil.getString(MainActivity.this, UserConfig.PRENTID)) {
+                    Toast.makeText(MainActivity.this,"您已经关联过相关老人，无需再次关联",Toast.LENGTH_LONG).show();
+                }else{
+                    startActivity(new Intent(MainActivity.this, BindParentActivity.class));
+                }
+            } else {
+                startActivity(new Intent(MainActivity.this, LoginActivity.class));
+            }
+
+
+
         } else if (id == R.id.nav_logout) {
             tipDialog = new AlertDialog.Builder(MainActivity.this)
                     .setMessage(getString(R.string.tip_logout))
@@ -237,6 +272,8 @@ public class MainActivity extends BaseActivity
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             PreferencesUtil.putString(getBaseContext(), UserConfig.MOBILE, null);
+                            PreferencesUtil.putString(getBaseContext(), UserConfig.PRENTID, null);
+
                             AVUser.logOut();
                             startActivity(new Intent(MainActivity.this, LoginActivity.class));
                         }
@@ -248,15 +285,32 @@ public class MainActivity extends BaseActivity
                     }).create();
             if (null != PreferencesUtil.getString(getBaseContext(), UserConfig.MOBILE)) {
                 tipDialog.show();
-            }else{
-                startActivity(new Intent(MainActivity.this,LoginActivity.class));
+            } else {
+                startActivity(new Intent(MainActivity.this, LoginActivity.class));
             }
 
-        } else if (id == R.id.nav_finishapp) {
+        } else if (id == R.id.nav_sendmsg) {
+
+            if (null != PreferencesUtil.getString(getBaseContext(), UserConfig.MOBILE)) {
+                if (null!= PreferencesUtil.getString(getBaseContext(),UserConfig.PRENTID)){
+                    startActivity(new Intent(MainActivity.this,MessageActivity.class));
+                }else{
+                    startActivity(new Intent(MainActivity.this,BindParentActivity.class));
+                }
+
+            } else {
+                startActivity(new Intent(MainActivity.this, LoginActivity.class));
+            }
 
         } else if (id == R.id.nav_share) {
 
-        } else if (id == R.id.nav_set) {
+        } else if (id == R.id.nav_feedback) {
+            if (null != PreferencesUtil.getString(getBaseContext(), UserConfig.MOBILE)) {
+                FeedbackAgent agent = new FeedbackAgent(MainActivity.this);
+                agent.startDefaultThreadActivity();
+            } else {
+                startActivity(new Intent(MainActivity.this, LoginActivity.class));
+            }
 
         }
 

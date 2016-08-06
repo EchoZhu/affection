@@ -3,21 +3,21 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_switchtoother"
+            android:id="@+id/nav_bindparent"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="@string/switchtoother" />
+            android:title="@string/bindparent" />
         <item
             android:id="@+id/nav_logout"
             android:icon="@drawable/ic_menu_gallery"
             android:title="@string/logout" />
         <item
-            android:id="@+id/nav_finishapp"
+            android:id="@+id/nav_sendmsg"
             android:icon="@drawable/ic_menu_send"
-            android:title="@string/finishapp" />
+            android:title="@string/rb_main_message" />
         <item
-            android:id="@+id/nav_set"
+            android:id="@+id/nav_feedback"
             android:icon="@drawable/ic_menu_manage"
-            android:title="@string/action_settings" />
+            android:title="@string/action_feedback" />
     </group>
 
     <item android:title="Communicate">

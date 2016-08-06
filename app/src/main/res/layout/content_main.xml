@@ -24,13 +24,13 @@
         android:layout_weight="1"
         tools:layout="@layout/fragment_gallery" />
 
-    <fragment
-        android:id="@+id/fg_main_message"
-        android:name="com.bupt.affection.fragment.MessageFragment"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        tools:layout="@layout/fragment_message" />
+    <!--<fragment-->
+        <!--android:id="@+id/fg_main_message"-->
+        <!--android:name="com.bupt.affection.fragment.MessageFragment"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="0dp"-->
+        <!--android:layout_weight="1"-->
+        <!--tools:layout="@layout/fragment_message" />-->
 
     <fragment
         android:id="@+id/fg_main_location"
@@ -55,10 +55,10 @@
             style="@style/rb_main_tab"
             android:text="@string/rb_main_gallery" />
 
-        <RadioButton
-            android:id="@+id/rb_main_message"
-            style="@style/rb_main_tab"
-            android:text="@string/rb_main_message" />
+        <!--<RadioButton-->
+            <!--android:id="@+id/rb_main_message"-->
+            <!--style="@style/rb_main_tab"-->
+            <!--android:text="@string/rb_main_message" />-->
 
         <RadioButton
             android:id="@+id/rb_main_location"

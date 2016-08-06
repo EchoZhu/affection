@@ -32,7 +32,7 @@
         completions."
     </string>
     <string name="share">分享</string>
-    <string name="switchtoother">切换人物</string>
+    <string name="bindparent">关联老人</string>
     <string name="logout">切换账户</string>
     <string name="finishapp">退出应用</string>
     <string name="changedate">更改日期</string>
@@ -57,6 +57,11 @@
     <string name="action_register_successful">注册成功</string>
     <string name="action_logining_successful">登录成功</string>
     <string name="action_logining_fail">登录失败:用户或者密码错误</string>
+    <string name="et_search_content_hint">请输入老人姓名</string>
+    <string name="action_searching">正在查找...</string>
+    <string name="confirm">是否确认选择该老人</string>
+    <string name="action_feedback">反馈</string>
+    <string name="et_hint_message">请填写您的留言</string>
 
 
 </resources>

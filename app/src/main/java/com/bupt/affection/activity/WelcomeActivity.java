@@ -92,7 +92,7 @@ public class WelcomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_welcome);
-        AVOSCloud.initialize(this,"48X5CbKCMh8qdAutJpkFNTr7-gzGzoHsz","kbhPFjfDTyXknMlD9MFuXsC0");
+        AVOSCloud.initialize(this, "48X5CbKCMh8qdAutJpkFNTr7-gzGzoHsz", "kbhPFjfDTyXknMlD9MFuXsC0");
         mVisible = true;
         mControlsView = findViewById(R.id.fullscreen_content_controls);
         mContentView = findViewById(R.id.fullscreen_content);
@@ -128,8 +128,9 @@ public class WelcomeActivity extends AppCompatActivity {
 //        } else {
 //            show();
 //        }
-        if (!mVisible){
-            startActivity(new Intent(WelcomeActivity.this,MainActivity.class));
+        if (!mVisible) {
+            startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
+            finish();
         }
     }
 

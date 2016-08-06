@@ -3,11 +3,13 @@ package com.bupt.affection.fragment;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 import com.bupt.affection.R;
 import com.bupt.affection.common.AppConfig;
@@ -34,8 +36,8 @@ public class LocationFragment extends Fragment {
 
 
     private WebView webView;
-//    private MapView mMapView = null;
-//    private AMap aMap;
+    private SwipeRefreshLayout swipeRefreshLayout;
+    private String width, height, longitude, latitude;
 
     public LocationFragment() {
         // Required empty public constructor
@@ -63,6 +65,7 @@ public class LocationFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         webView = (WebView) view.findViewById(R.id.webView);
+
         WebSettings settings = webView.getSettings();
         settings.setJavaScriptEnabled(true);
 //        //支持缩放
@@ -70,21 +73,33 @@ public class LocationFragment extends Fragment {
         settings.setLoadWithOverviewMode(true);
         settings.setBuiltInZoomControls(true);
         settings.setSupportZoom(true);//设定支持缩放
-//        webView.loadUrl("http://restapi.amap.com/v3/staticmap?location=116.481485,39.990464&zoom=10&size=750*300&markers=mid,,A:116.481485,39.990464&key=ee95e52bf08006f63fd29bcfbcf21df0");
-
-//        mMapView = (MapView) view.findViewById(R.id.map);
-//        AMap aMap = mMapView.getMap();
-//        aMap.setMapType(AMap.MAP_TYPE_NORMAL);
-        String width = "550";
-        String height = "1400";
-        String longitude = "116.355932";
-        String latitude = "39.963201";
+        width = "550";
+        height = "1400";
+        longitude = "116.355932";
+        latitude = "39.963201";
         webView.loadUrl(
-                "http://restapi.amap.com/v3/staticmap?location="+longitude+","+latitude+
-                "&zoom=10&size="+width+"*"+height+
-                "&markers=mid,,A:"+longitude+","+latitude+
-                        "&key="+ AppConfig.AMAP_KEY);
+                "http://restapi.amap.com/v3/staticmap?location=" + longitude + "," + latitude +
+                        "&zoom=10&size=" + width + "*" + height +
+                        "&markers=mid,,A:" + longitude + "," + latitude +
+                        "&key=" + AppConfig.AMAP_KEY);
 
+        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_container);
+        swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_light, android.R.color.holo_red_light, android.R.color.holo_orange_light, android.R.color.holo_green_light);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                webView.reload();
+                if (webView!=null){
+                    webView.setWebViewClient(new WebViewClient(){
+                        @Override
+                        public void onPageFinished(WebView view, String url) {
+                            super.onPageFinished(view, url);
+                            swipeRefreshLayout.setRefreshing(false);
+                        }
+                    });
+                }
+            }
+        });
     }
 
     @Override

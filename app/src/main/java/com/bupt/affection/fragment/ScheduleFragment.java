@@ -16,6 +16,8 @@ import com.avos.avoscloud.GetCallback;
 import com.bupt.affection.R;
 import com.bupt.affection.activity.ScheduleActivity;
 import com.bupt.affection.common.CommonUtil;
+import com.bupt.affection.common.PreferencesUtil;
+import com.bupt.affection.common.UserConfig;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -44,6 +46,7 @@ public class ScheduleFragment extends Fragment {
     private String foods[];
     private String acts[];
     private String sleeps[];
+//    private SwipeRefreshLayout refresh;
 
 
     private OnFragmentInteractionListener mListener;
@@ -129,19 +132,31 @@ public class ScheduleFragment extends Fragment {
         sleep_2 = (TextView) view.findViewById(R.id.sleep_2);
         sleep_3 = (TextView) view.findViewById(R.id.sleep_3);
 
-
+//        refresh = (SwipeRefreshLayout) view.findViewById(R.id.swipe_container);
+//        refresh.setColorSchemeResources(android.R.color.holo_blue_light, android.R.color.holo_red_light, android.R.color.holo_orange_light, android.R.color.holo_green_light);
+//        refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//            @Override
+//            public void onRefresh() {
+//                getDataFromLeanCloud();
+//            }
+//        });
         return view;
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        if (CommonUtil.loginStatus(getActivity())) {
+        getDataFromLeanCloud();
+    }
 
-        } else {
-            //未登录时查看指定未登录数据
-            AVQuery<AVObject> avQuery = new AVQuery<>("ScheduleWithoutLogin");
-            avQuery.getInBackground("579f8123d342d3005724de1e", new GetCallback<AVObject>() {
+    private void getDataFromLeanCloud() {
+        //登录时，拉取对应老人的信息
+        if (CommonUtil.loginStatus(getActivity())&&null!= PreferencesUtil.getString(getActivity(), UserConfig.PRENTID)) {
+            //登录时查看指定未登录数据
+            String id = PreferencesUtil.getString(getActivity(), UserConfig.PRENTID);
+//            Logger.d(id);
+            AVQuery<AVObject> avQuery = new AVQuery<>("Parents");
+            avQuery.getInBackground(id, new GetCallback<AVObject>() {
                 @Override
                 public void done(AVObject avObject, AVException e) {
                     Map<String, String> foodMap = new HashMap<String, String>();
@@ -175,10 +190,71 @@ public class ScheduleFragment extends Fragment {
                     sleep_1.setText(sleep1);
                     sleep_2.setText(sleep2);
                     sleep_3.setText(sleep3);
+//                    if (refresh.isRefreshing()){
+//                        refresh.setRefreshing(false);
+//                    }
+                }
+            });
+
+//            avQuery.findInBackground(new FindCallback<AVObject>() {
+//                @Override
+//                public void done(List<AVObject> list, AVException e) {
+////                    ArrayList<AVObject> schedules = (ArrayList<AVObject>) list;
+//                    for (AVObject schedule:list){
+//                        String mobile = PreferencesUtil.getString(getActivity(), UserConfig.MOBILE);
+//                        if (schedule.get("children")!=null && schedule.get("children").equals(mobile));
+//                        {
+////                            Logger.json(schedule.toString());
+//                            String id = schedule.getObjectId();
+//                            PreferencesUtil.putString(getActivity(),"parentId",id);
+//                            Logger.d(id);
+//                        }
+//                    }
+//                }
+//            });
+        } else {
+            //未登录时查看指定未登录数据
+            AVQuery<AVObject> avQuery = new AVQuery<>("ScheduleWithoutLogin");
+            avQuery.getInBackground("579f83ae0a2b580058162ece", new GetCallback<AVObject>() {
+                @Override
+                public void done(AVObject avObject, AVException e) {
+                    Map<String, String> foodMap = new HashMap<String, String>();
+                    Map<String, String> actMap = new HashMap<String, String>();
+                    Map<String, String> sleepMap = new HashMap<String, String>();
+
+                    foodMap = (Map<String, String>) avObject.get("food");
+                    String food1 = foodMap.get("food_1").toString();
+                    String food2 = foodMap.get("food_2").toString();
+                    String food3 = foodMap.get("food_3").toString();
+
+                    actMap = (Map<String, String>) avObject.get("act");
+                    String act1 = actMap.get("act_1").toString();
+                    String act2 = actMap.get("act_2").toString();
+                    String act3 = actMap.get("act_3").toString();
+
+                    sleepMap = (Map<String, String>) avObject.get("sleep");
+                    String sleep1 = sleepMap.get("sleep_1").toString();
+                    String sleep2 = sleepMap.get("sleep_2").toString();
+                    String sleep3 = sleepMap.get("sleep_3").toString();
+
+
+                    food_1.setText(food1);
+                    food_2.setText(food2);
+                    food_3.setText(food3);
+
+                    act_1.setText(act1);
+                    act_2.setText(act2);
+                    act_3.setText(act3);
+
+                    sleep_1.setText(sleep1);
+                    sleep_2.setText(sleep2);
+                    sleep_3.setText(sleep3);
+//                    if (refresh.isRefreshing()){
+//                        refresh.setRefreshing(false);
+//                    }
                 }
             });
         }
-
     }
 
     // TODO: Rename method, update argument and hook method into UI event
