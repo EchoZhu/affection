@@ -11,8 +11,8 @@
 
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="0dp"
             android:orientation="horizontal">
 
             <LinearLayout
@@ -28,7 +28,8 @@
                     android:layout_height="0dp"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="饮食" />
+                    android:text="饮食"
+                    android:background="@drawable/setbar_bg"/>
 
                 <TextView
                     android:id="@+id/entertainment"
@@ -36,7 +37,8 @@
                     android:layout_height="0dp"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="休闲活动" />
+                    android:text="休闲活动"
+                    android:background="@drawable/setbar_bg"/>
 
                 <TextView
                     android:id="@+id/sleep"
@@ -44,7 +46,8 @@
                     android:layout_height="0dp"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="睡眠" />
+                    android:text="睡眠"
+                    android:background="@drawable/setbar_bg"/>
 
                 <TextView
                     android:id="@+id/health"
@@ -52,7 +55,8 @@
                     android:layout_height="0dp"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="健康" />
+                    android:text="健康"
+                    android:background="@drawable/setbar_bg"/>
             </LinearLayout>
 
             <LinearLayout
