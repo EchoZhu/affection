@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/avoscloud_feedback_input_wrapper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/avoscloud_feedback_input_wrap_background">
+
+        <FrameLayout
+            android:id="@+id/avoscloud_feedback_functional_wrap"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true">
+
+            <Button
+                android:id="@+id/btn_feedback_send"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:background="@color/avoscloud_feedback_input_wrap_background"
+                android:padding="5dp"
+                android:text="@string/avoscloud_feedback_send_text"
+                android:textColor="@color/avoscloud_feedback_text_gray"
+                android:textStyle="bold"></Button>
+        </FrameLayout>
+
+        <EditText
+            android:id="@+id/et_feedback_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_toLeftOf="@id/avoscloud_feedback_functional_wrap"
+            android:background="@color/avoscloud_feedback_input_wrap_background"
+            android:hint="@string/et_hint_message"
+            android:minHeight="40dp"
+            android:textColor="@color/avoscloud_feedback_text_gray"
+            android:textCursorDrawable="@null"></EditText>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_title_msg"
+        style="@style/rl_common_titleBar">
+
+        <ImageView
+            android:id="@+id/iv_back"
+            style="@style/iv_common_back" />
+
+        <TextView
+            style="@style/tv_common_titleBar_title"
+            android:text="@string/rb_main_message" />
+
+
+    </RelativeLayout>
+
+    <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/swipe_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/avoscloud_feedback_input_wrapper"
+        android:layout_below="@id/rl_title_msg">
+        <!-- TODO: Update blank fragment layout -->
+
+
+            <ListView
+                android:id="@+id/lv_feedback"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:divider="#000"
+                android:dividerHeight="0dp"
+                android:transcriptMode="normal"></ListView>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+</RelativeLayout>
+

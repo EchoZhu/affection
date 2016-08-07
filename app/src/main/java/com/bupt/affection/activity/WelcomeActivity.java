@@ -1,6 +1,7 @@
 package com.bupt.affection.activity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.ActionBar;
@@ -8,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.avos.avoscloud.AVOSCloud;
 import com.bupt.affection.R;
 
 /**
@@ -90,7 +92,7 @@ public class WelcomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_welcome);
-
+        AVOSCloud.initialize(this, "48X5CbKCMh8qdAutJpkFNTr7-gzGzoHsz", "kbhPFjfDTyXknMlD9MFuXsC0");
         mVisible = true;
         mControlsView = findViewById(R.id.fullscreen_content_controls);
         mContentView = findViewById(R.id.fullscreen_content);
@@ -121,10 +123,14 @@ public class WelcomeActivity extends AppCompatActivity {
     }
 
     private void toggle() {
-        if (mVisible) {
-            hide();
-        } else {
-            show();
+//        if (mVisible) {
+//            hide();
+//        } else {
+//            show();
+//        }
+        if (!mVisible) {
+            startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
+            finish();
         }
     }
 

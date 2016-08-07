@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.bupt.affection.activity.BindParentActivity">
+    <RelativeLayout
+        style="@style/rl_common_titleBar"
+        android:padding="5dp">
+
+        <ImageView
+            android:id="@+id/iv_common_back"
+            style="@style/iv_common_back" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/all_common_round_background"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/iv_search_icon" />
+
+            <EditText
+                android:id="@+id/et_search_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="35dp"
+                android:layout_marginRight="30dp"
+                android:background="@null"
+                android:hint="@string/et_search_content_hint"
+                android:imeOptions="actionSearch"
+                android:maxLength="10"
+                android:singleLine="true"
+                android:textColor="@android:color/black"
+                android:textCursorDrawable="@drawable/et_common_cursor"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:id="@+id/iv_search_clear"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:src="@drawable/iv_search_clear" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/lv_search"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="12dp"
+        android:footerDividersEnabled="true"
+        android:headerDividersEnabled="true"
+        android:overScrollMode="never" />
+</LinearLayout>
