@@ -55,7 +55,6 @@
     <string name="title_activity_main2">Main2Activity</string>
 
 
- 
     <string name="action_register_successful">注册成功</string>
     <string name="action_logining_successful">登录成功</string>
     <string name="action_logining_fail">登录失败:用户或者密码错误</string>
