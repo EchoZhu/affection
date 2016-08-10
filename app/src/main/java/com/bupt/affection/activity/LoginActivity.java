@@ -372,7 +372,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             if (success) {
                 PreferencesUtil.putString(getBaseContext(), UserConfig.MOBILE,mUsername);
-                finish();
+                if (PreferencesUtil.getString(LoginActivity.this,UserConfig.PRENTID)!=null){
+                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                    finish();
+                }else{
+                    startActivity(new Intent(LoginActivity.this, BindParentActivity.class));
+                    finish();
+                }
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();

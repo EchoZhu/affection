@@ -1,6 +1,5 @@
 package com.bupt.affection.fragment;
 
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -14,7 +13,6 @@ import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.GetCallback;
 import com.bupt.affection.R;
-import com.bupt.affection.activity.ScheduleActivity;
 import com.bupt.affection.common.CommonUtil;
 import com.bupt.affection.common.PreferencesUtil;
 import com.bupt.affection.common.UserConfig;
@@ -88,38 +86,38 @@ public class ScheduleFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_schedule, container, false);
-        TextView textView_meal = (TextView) view.findViewById(R.id.meal);
-        textView_meal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), ScheduleActivity.class);
-                startActivity(intent);
-            }
-        });
-        TextView textView_entertainment = (TextView) view.findViewById(R.id.entertainment);
-        textView_entertainment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), ScheduleActivity.class);
-                startActivity(intent);
-            }
-        });
-        TextView textView_sleep = (TextView) view.findViewById(R.id.sleep);
-        textView_sleep.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), ScheduleActivity.class);
-                startActivity(intent);
-            }
-        });
-        TextView textView_health = (TextView) view.findViewById(R.id.health);
-        textView_health.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), ScheduleActivity.class);
-                startActivity(intent);
-            }
-        });
+//        TextView textView_meal = (TextView) view.findViewById(R.id.meal);
+//        textView_meal.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(getActivity(), ScheduleActivity.class);
+//                startActivity(intent);
+//            }
+//        });
+//        TextView textView_entertainment = (TextView) view.findViewById(R.id.entertainment);
+//        textView_entertainment.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(getActivity(), ScheduleActivity.class);
+//                startActivity(intent);
+//            }
+//        });
+//        TextView textView_sleep = (TextView) view.findViewById(R.id.sleep);
+//        textView_sleep.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(getActivity(), ScheduleActivity.class);
+//                startActivity(intent);
+//            }
+//        });
+//        TextView textView_health = (TextView) view.findViewById(R.id.health);
+//        textView_health.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(getActivity(), ScheduleActivity.class);
+//                startActivity(intent);
+//            }
+//        });
         food_1 = (TextView) view.findViewById(R.id.food_1);
         food_2 = (TextView) view.findViewById(R.id.food_2);
         food_3 = (TextView) view.findViewById(R.id.food_3);
@@ -193,6 +191,10 @@ public class ScheduleFragment extends Fragment {
 //                    if (refresh.isRefreshing()){
 //                        refresh.setRefreshing(false);
 //                    }
+                    String longitude = avObject.get("longitude").toString();
+                    String latitude = avObject.get("latitude").toString();
+//                    PreferencesUtil.putString(getActivity(),UserConfig.longitude,longitude);
+//                    PreferencesUtil.putString(getActivity(),UserConfig.longitude,longitude);
                 }
             });
 

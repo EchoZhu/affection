@@ -15,4 +15,6 @@ public class UserConfig {
     public static final String POSITION = "POSITION";
     public static final String LOCATION = "LOCATION";
     public static final String BALANCE = "BALANCE";
+    public static final String longitude = "longitude";
+    public static final String latitude = "latitude";
 }

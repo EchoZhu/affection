@@ -1,5 +1,6 @@
 package com.bupt.affection.fragment;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,8 +12,15 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVObject;
+import com.avos.avoscloud.AVQuery;
+import com.avos.avoscloud.GetCallback;
 import com.bupt.affection.R;
+import com.bupt.affection.activity.LoginActivity;
 import com.bupt.affection.common.AppConfig;
+import com.bupt.affection.common.PreferencesUtil;
+import com.bupt.affection.common.UserConfig;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -75,13 +83,29 @@ public class LocationFragment extends Fragment {
         settings.setSupportZoom(true);//设定支持缩放
         width = "550";
         height = "1400";
-        longitude = "116.355932";
-        latitude = "39.963201";
-        webView.loadUrl(
-                "http://restapi.amap.com/v3/staticmap?location=" + longitude + "," + latitude +
-                        "&zoom=10&size=" + width + "*" + height +
-                        "&markers=mid,,A:" + longitude + "," + latitude +
-                        "&key=" + AppConfig.AMAP_KEY);
+
+//        longitude = "116.355932";
+//        latitude = "39.963201";
+            if (null!=PreferencesUtil.getString(getActivity(),UserConfig.PRENTID)&&
+                    null!=PreferencesUtil.getString(getActivity(),UserConfig.MOBILE)){
+                AVQuery<AVObject> avQuery = new AVQuery<>("Parents");
+                avQuery.getInBackground(PreferencesUtil.getString(getActivity(), UserConfig.PRENTID), new GetCallback<AVObject>() {
+                    @Override
+                    public void done(AVObject avObject, AVException e) {
+                        longitude = avObject.get("longitude").toString();
+                        latitude = avObject.get("latitude").toString();
+                         webView.loadUrl(
+                                "http://restapi.amap.com/v3/staticmap?location=" + longitude + "," + latitude +
+                                        "&zoom=10&size=" + width + "*" + height +
+                                        "&markers=mid,,A:" + longitude + "," + latitude +
+                                        "&key=" + AppConfig.AMAP_KEY);
+                    }
+                });
+            }else {
+                startActivity(new Intent(getActivity(), LoginActivity.class));
+            }
+
+
 
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_container);
         swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_light, android.R.color.holo_red_light, android.R.color.holo_orange_light, android.R.color.holo_green_light);
@@ -94,6 +118,19 @@ public class LocationFragment extends Fragment {
                         @Override
                         public void onPageFinished(WebView view, String url) {
                             super.onPageFinished(view, url);
+                            AVQuery<AVObject> avQuery = new AVQuery<>("Parents");
+                            avQuery.getInBackground(PreferencesUtil.getString(getActivity(), UserConfig.PRENTID), new GetCallback<AVObject>() {
+                                @Override
+                                public void done(AVObject avObject, AVException e) {
+                                    longitude = avObject.get("longitude").toString();
+                                    latitude = avObject.get("latitude").toString();
+                                }
+                            });
+                            webView.loadUrl(
+                                    "http://restapi.amap.com/v3/staticmap?location=" + longitude + "," + latitude +
+                                            "&zoom=10&size=" + width + "*" + height +
+                                            "&markers=mid,,A:" + longitude + "," + latitude +
+                                            "&key=" + AppConfig.AMAP_KEY);
                             swipeRefreshLayout.setRefreshing(false);
                         }
                     });

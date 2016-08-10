@@ -3,18 +3,23 @@ package com.bupt.affection.fragment;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.GridView;
-import android.widget.ListView;
-import android.widget.SimpleAdapter;
 
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVObject;
+import com.avos.avoscloud.AVQuery;
+import com.avos.avoscloud.GetCallback;
 import com.bupt.affection.R;
+import com.bupt.affection.adapter.RecyclerAdapter;
+import com.bupt.affection.common.PreferencesUtil;
+import com.bupt.affection.common.UserConfig;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -31,8 +36,13 @@ public class GalleryFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    private GridView gridView;
-    private List<Map<String,Object>>dataList;
+    private RecyclerView recyclerView;
+    private SwipeRefreshLayout swipeRefreshLayout;
+    private ArrayList<String> list;
+    private RecyclerAdapter adapter;
+
+
+    private List<Map<String, Object>> dataList;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -75,10 +85,58 @@ public class GalleryFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_gallery,null);
-        gridView = (GridView)view.findViewById(R.id.grid);
-        init();
+        View view = inflater.inflate(R.layout.fragment_gallery, null);
+        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerview);
+        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_container);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 2);
+        recyclerView.setLayoutManager(gridLayoutManager);
+        swipeRefreshLayout.setColorSchemeResources(
+                android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                if (null!=PreferencesUtil.getString(getActivity(),UserConfig.MOBILE)&&
+                        null!=PreferencesUtil.getString(getActivity(),UserConfig.PRENTID)){
+                    getData();
+                }else{
+                    swipeRefreshLayout.setRefreshing(false);
+                }
+            }
+
+
+        });
+        list = new ArrayList<String>();
+
+        if (null!=PreferencesUtil.getString(getActivity(),UserConfig.MOBILE)&&
+                null!=PreferencesUtil.getString(getActivity(),UserConfig.PRENTID)){
+            getData();
+        }
+
+
         return view;
+    }
+
+    private void getData() {
+        //获取url
+        String id = PreferencesUtil.getString(getActivity(), UserConfig.PRENTID);
+//            Logger.d(id);
+        AVQuery<AVObject> avQuery = new AVQuery<>("Parents");
+        avQuery.getInBackground(id, new GetCallback<AVObject>() {
+            @Override
+            public void done(AVObject avObject, AVException e) {
+                list.clear();
+                list = (ArrayList<String>) avObject.get("pic");
+//                Logger.e(list.toString());
+                adapter = new RecyclerAdapter(list,getActivity());
+                recyclerView.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
+
     }
 
 
@@ -92,24 +150,6 @@ public class GalleryFragment extends Fragment {
 //            }
 //
 //        }
-
-    private void init() {
-        dataList = new ArrayList<Map<String, Object>>();
-        String[] date = {"2016.7.1","2016.7.2","2016.7.3","2016.7.4","2016.7.5","2016.7.6","2016.7.7","2016.7.8","2016.7.9","2016.7.10"};
-        for (int i = 0; i < date.length; i++) {
-            Map<String, Object> map = new HashMap<String, Object>();
-            map.put("picture", R.drawable.ic_menu_gallery);
-            map.put("date", date[i]);
-            dataList.add(map);
-
-//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_list_item_1, map);
-
-        }
-
-        SimpleAdapter simp_adapter = new SimpleAdapter(getActivity(), dataList, R.layout.gallery_into, new String[]{"picture", "date"}, new int[]{R.id.picture, R.id.date});
-        gridView.setAdapter(simp_adapter);
-//        gridView.setOnItemClickListener();
-    }
 
 
     // TODO: Rename method, update argument and hook method into UI event

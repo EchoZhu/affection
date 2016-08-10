@@ -53,10 +53,9 @@
     <string name="photo">照片</string>
 
     <string name="title_activity_main2">Main2Activity</string>
-<<<<<<< HEAD
-=======
 
->>>>>>> eb3b1146fb5dd97dd990c5956be3a56653cf529b
+
+ 
     <string name="action_register_successful">注册成功</string>
     <string name="action_logining_successful">登录成功</string>
     <string name="action_logining_fail">登录失败:用户或者密码错误</string>

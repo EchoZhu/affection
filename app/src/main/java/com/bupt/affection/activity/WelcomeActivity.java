@@ -11,6 +11,8 @@ import android.view.View;
 
 import com.avos.avoscloud.AVOSCloud;
 import com.bupt.affection.R;
+import com.bupt.affection.common.PreferencesUtil;
+import com.bupt.affection.common.UserConfig;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -129,7 +131,16 @@ public class WelcomeActivity extends AppCompatActivity {
 //            show();
 //        }
         if (!mVisible) {
-            startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
+            if (PreferencesUtil.getString(WelcomeActivity.this, UserConfig.MOBILE)!=null){
+                if (PreferencesUtil.getString(WelcomeActivity.this,UserConfig.PRENTID)!=null){
+                    startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
+                }else{
+                    startActivity(new Intent(WelcomeActivity.this, BindParentActivity.class));
+                }
+            }else {
+                startActivity(new Intent(WelcomeActivity.this, LoginActivity.class));
+            }
+
             finish();
         }
     }

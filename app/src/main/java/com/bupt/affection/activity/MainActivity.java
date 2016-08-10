@@ -29,6 +29,7 @@ import com.bupt.affection.common.BaseActivity;
 import com.bupt.affection.common.CommonUtil;
 import com.bupt.affection.common.PreferencesUtil;
 import com.bupt.affection.common.UserConfig;
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
@@ -50,6 +51,7 @@ public class MainActivity extends BaseActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Fresco.initialize(this);
         setContentView(R.layout.activity_main);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle(getString(R.string.rb_main_schedule));
@@ -93,10 +95,11 @@ public class MainActivity extends BaseActivity
         sleepObject.put("sleep_2", "午睡时间适中");
         sleepObject.put("sleep_3", "无瞌睡状况");
 
-        JSONObject picObject = new JSONObject();
-        picObject.put("pic_1", "http://ww3.sinaimg.cn/mw690/49a565f3jw1f6ju4fx2vnj21jk13dn8w.jpg");
-        picObject.put("pic_2", "http://ww2.sinaimg.cn/mw690/49a565f3jw1f6ju4hqrbej21jk10349g.jpg");
-        picObject.put("pic_3", "http://ww4.sinaimg.cn/mw690/49a565f3jw1f6ju4jj6ixj21jk1127fl.jpg");
+
+        List<String> picList = new ArrayList<>();
+        picList.add("http://ww3.sinaimg.cn/mw690/49a565f3jw1f6ju4fx2vnj21jk13dn8w.jpg");
+        picList.add("http://ww2.sinaimg.cn/mw690/49a565f3jw1f6ju4hqrbej21jk10349g.jpg");
+        picList.add("http://ww4.sinaimg.cn/mw690/49a565f3jw1f6ju4jj6ixj21jk1127fl.jpg");
 
         List<String> msgList = new ArrayList<>();
         msgList.add("这是第一条消息");
@@ -106,13 +109,17 @@ public class MainActivity extends BaseActivity
         Parents.put("food", foodObject);
         Parents.put("act", actObject);
         Parents.put("sleep", sleepObject);
-        Parents.put("pic", picObject);
+        Parents.put("pic", picList);
         Parents.put("message", msgList);
 
         Parents.put("priority", 1);// 设置优先级
         Parents.put("children", "18801253526");// 设置子女账号
         Parents.put("nurse", "18801253526");// 设置护工账号
         Parents.put("name", "王大爷");//设置老人姓名
+
+        Parents.put("longitude", "116.355932");//设置经度
+        Parents.put("latitude", "39.963201");//设置纬度
+
         Parents.saveInBackground();// 保存到服务端
     }
 
@@ -142,7 +149,7 @@ public class MainActivity extends BaseActivity
                     setFragmentVisible(R.id.fg_main_schedule);
                     toolbar.setTitle(getString(R.string.rb_main_schedule));
                 } else {
-
+                    startActivity(new Intent(MainActivity.this, LoginActivity.class));
                 }
 
             }
