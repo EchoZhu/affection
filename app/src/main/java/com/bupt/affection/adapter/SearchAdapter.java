@@ -50,10 +50,12 @@ public class SearchAdapter extends BaseAdapter {
             convertView = LayoutInflater.from(mContext).inflate(R.layout.item_search_listview, viewGroup, false);
             holder = new ViewHolder();
             holder.tvParentName = (TextView) convertView.findViewById(R.id.tv_parentName);
+            holder.tv_descentnumber = (TextView) convertView.findViewById(R.id.tv_descentnumber);
             convertView.setTag(holder);
         }
         name = mTagList.get(position).split(":")[0];
         holder.tvParentName.setText(name);
+        holder.tv_descentnumber.setText(mTagList.get(position).split(":")[1]);
 
         return convertView;
     }
@@ -61,6 +63,7 @@ public class SearchAdapter extends BaseAdapter {
     static class ViewHolder {
 
         TextView tvParentName;
+        TextView tv_descentnumber;
 
     }
 

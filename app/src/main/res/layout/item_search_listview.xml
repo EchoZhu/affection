@@ -2,20 +2,35 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@drawable/tv_common_send_background"
-    >
+    android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/tv_parentName"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="王大爷"
-        android:textSize="26sp"
-        android:layout_gravity="center_horizontal"
-        android:paddingTop="3dp"
-        android:paddingBottom="3dp"
-        android:textColor="@color/green"
-    />
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/item_search_text"
+            android:layout_marginLeft="10dp"
+            android:text="姓名:" />
+
+        <TextView
+            android:id="@+id/tv_parentName"
+            style="@style/item_search_text"
+            android:text="王大爷" />
+
+        <TextView
+            style="@style/item_search_text"
+            android:text=" 亲属电话:" />
+
+        <TextView
+            android:id="@+id/tv_descentnumber"
+            style="@style/item_search_text" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/cyan" />
 
 </LinearLayout>

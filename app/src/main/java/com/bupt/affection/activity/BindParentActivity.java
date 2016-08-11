@@ -54,7 +54,7 @@ public class BindParentActivity extends BaseActivity {
         lv_search.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                parentID = dataList.get(position).split(":")[1];
+                parentID = dataList.get(position).split(":")[2];
                 Logger.d(parentID);
                 AlertDialog.Builder builder = new AlertDialog.Builder(BindParentActivity.this);
                 builder.setMessage(getString(R.string.confirm));
@@ -98,7 +98,8 @@ public class BindParentActivity extends BaseActivity {
                                     if (name.equals(searchContent)) {
 //                                        Toast.makeText(BindParentActivity.this,searchContent,Toast.LENGTH_LONG).show();
                                         Logger.d(name);
-                                        String data = name+":"+parent.getObjectId();
+                                        String children = parent.get("children").toString();
+                                        String data = name+":"+children+":"+parent.getObjectId();
                                         dataList.add(data);
                                         adapter.notifyDataSetChanged();
                                         dialog.dismiss();

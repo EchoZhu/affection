@@ -222,6 +222,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     if (avUser != null){
                         PreferencesUtil.putString(getBaseContext(), UserConfig.MOBILE,username);
                         Toast.makeText(LoginActivity.this,getString(R.string.action_logining_successful),Toast.LENGTH_LONG).show();
+                        if (PreferencesUtil.getString(LoginActivity.this,UserConfig.PRENTID)!=null){
+                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                            finish();
+                        }else{
+                            startActivity(new Intent(LoginActivity.this, BindParentActivity.class));
+                            finish();
+                        }
                         finish();
                     }else {
                         JsonObject returnData = new JsonParser().parse(e.getMessage()).getAsJsonObject();
