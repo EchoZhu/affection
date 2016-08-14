@@ -10,9 +10,13 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.avos.avoscloud.AVOSCloud;
+import com.avos.avoscloud.AVObject;
 import com.bupt.affection.R;
 import com.bupt.affection.common.PreferencesUtil;
 import com.bupt.affection.common.UserConfig;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -93,6 +97,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_welcome);
         AVOSCloud.initialize(this, "48X5CbKCMh8qdAutJpkFNTr7-gzGzoHsz", "kbhPFjfDTyXknMlD9MFuXsC0");
+
         mVisible = true;
         mContentView = findViewById(R.id.fullscreen_content);
 
@@ -101,6 +106,7 @@ public class WelcomeActivity extends AppCompatActivity {
         mContentView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+//                addLeanCloudData();
                 toggle();
             }
         });
@@ -108,6 +114,61 @@ public class WelcomeActivity extends AppCompatActivity {
         // Upon interacting with UI controls, delay any scheduled hide()
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.
+
+    }
+
+    private void addLeanCloudData() {
+        AVObject Parents = new AVObject("Parents");// 构建对象
+//        String foods[] = {"西红柿炒鸡蛋","牛奶","油饼","凉拌三丝"};
+//        String acts[] = {"打桥牌","跳广场舞","京剧演出","散步"};
+//        String sleeps[] = {"睡眠状况良好","午睡时间适中","无瞌睡状况"};
+//        scheduleShow.put("food", foods);
+//        scheduleShow.put("act", acts);
+        List<String> foodList = new ArrayList<>();
+        foodList.add("炒菜花");
+        foodList.add("炒菜花0");
+        foodList.add("炒菜花1");
+        foodList.add("炒菜花2");
+
+        List<String> actList = new ArrayList<>();
+        actList.add("跳广场舞");
+        actList.add("跳广场舞1");
+        actList.add("跳广场舞3");
+        actList.add("跳广场舞4");
+
+        List<String> sleepList = new ArrayList<>();
+        sleepList.add("睡眠状况良好");
+        sleepList.add("睡眠状况良好0");
+        sleepList.add("睡眠状况良好1");
+        sleepList.add("睡眠状况良好2");
+        sleepList.add("睡眠状况良好3");
+
+
+        List<String> picList = new ArrayList<>();
+        picList.add("http://ww3.sinaimg.cn/mw690/49a565f3jw1f6ju4fx2vnj21jk13dn8w.jpg");
+        picList.add("http://ww2.sinaimg.cn/mw690/49a565f3jw1f6ju4hqrbej21jk10349g.jpg");
+        picList.add("http://ww4.sinaimg.cn/mw690/49a565f3jw1f6ju4jj6ixj21jk1127fl.jpg");
+
+        List<String> msgList = new ArrayList<>();
+        msgList.add("这是第一条消息");
+        msgList.add("这是第二条消息");
+        msgList.add("这是第三条消息");
+
+        Parents.put("food", foodList);
+        Parents.put("act", actList);
+        Parents.put("sleep", sleepList);
+        Parents.put("pic", picList);
+        Parents.put("message", msgList);
+
+        Parents.put("priority", 1);// 设置优先级
+        Parents.put("children", "18801253526");// 设置子女账号
+        Parents.put("nurse", "18801253526");// 设置护工账号
+        Parents.put("name", "王大爷");//设置老人姓名
+
+        Parents.put("longitude", "116.355932");//设置经度
+        Parents.put("latitude", "39.963201");//设置纬度
+
+        Parents.saveInBackground();// 保存到服务端
     }
 
     @Override

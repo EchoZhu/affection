@@ -62,50 +62,37 @@
 
                 <TextView
                     android:id="@+id/food_1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:gravity="center"
-                    android:text="food_1" />
+                    style="@style/tv_roll_style" />
 
                 <TextView
                     android:id="@+id/food_2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
+                    style="@style/tv_roll_style"
                     android:layout_toRightOf="@+id/food_1"
-                    android:gravity="center"
-                    android:text="food_2" />
+
+                    />
 
                 <TextView
                     android:id="@+id/food_3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
+                    style="@style/tv_roll_style"
                     android:layout_toRightOf="@+id/food_2"
-                    android:gravity="center"
-                    android:text="food_3" />
+
+                    />
 
                 <TextView
                     android:id="@+id/food_4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/tv_roll_style"
                     android:layout_below="@+id/food_2"
-                    android:layout_margin="20dp"
-                    android:gravity="center"
-                    android:text="food_4"
-                    android:visibility="gone" />
+
+                    />
 
                 <TextView
                     android:id="@+id/food_5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/tv_roll_style"
                     android:layout_below="@+id/food_2"
-                    android:layout_margin="20dp"
+
                     android:layout_toRightOf="@+id/food_4"
-                    android:gravity="center"
-                    android:text="food_5"
-                    android:visibility="gone" />
+
+                    />
             </RelativeLayout>
 
             <View
@@ -121,38 +108,27 @@
 
                 <TextView
                     android:id="@+id/fun_1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:gravity="center"
-                    android:text="fun_1" />
+                    style="@style/tv_roll_style" />
 
                 <TextView
                     android:id="@+id/fun_2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:layout_toRightOf="@+id/fun_1"
-                    android:gravity="center"
-                    android:text="fun_2" />
+
+                    style="@style/tv_roll_style"
+                    android:layout_toRightOf="@+id/fun_1" />
 
                 <TextView
                     android:id="@+id/fun_3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:layout_toRightOf="@+id/fun_2"
-                    android:gravity="center"
-                    android:text="fun_3" />
+
+                    style="@style/tv_roll_style"
+                    android:layout_toRightOf="@+id/fun_2" />
 
                 <TextView
                     android:id="@+id/fun_4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+
+                    style="@style/tv_roll_style"
+
                     android:layout_below="@+id/fun_2"
-                    android:layout_margin="20dp"
-                    android:gravity="center"
-                    android:text="fun_4"
+
                     android:visibility="gone" />
 
                 <TextView
@@ -166,10 +142,12 @@
                     android:text="fun_5"
                     android:visibility="gone" />
             </RelativeLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/blue_dark" />
+
             <RelativeLayout
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
@@ -178,20 +156,13 @@
 
                 <TextView
                     android:id="@+id/sleep_1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:gravity="center"
-                    android:text="sleep_1" />
+                    style="@style/tv_roll_style" />
 
                 <TextView
                     android:id="@+id/sleep_2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:layout_toRightOf="@+id/sleep_1"
-                    android:gravity="center"
-                    android:text="sleep_2" />
+
+                    style="@style/tv_roll_style"
+                    android:layout_toRightOf="@+id/sleep_1" />
 
                 <TextView
                     android:id="@+id/sleep_4"
@@ -201,16 +172,13 @@
                     android:layout_toRightOf="@+id/sleep_2"
                     android:gravity="center"
                     android:text="sleep_3"
-                    android:visibility="gone"/>
+                    android:visibility="gone" />
 
                 <TextView
                     android:id="@+id/sleep_3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/sleep_2"
-                    android:layout_margin="10dp"
-                    android:gravity="center"
-                    android:text="sleep_4" />
+
+                    style="@style/tv_roll_style"
+                    android:layout_below="@+id/sleep_2" />
 
                 <TextView
                     android:id="@+id/sleep_5"
@@ -223,15 +191,33 @@
                     android:text="sleep_5"
                     android:visibility="gone" />
             </RelativeLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/blue_dark" />
+
             <RelativeLayout
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
-                android:padding="10dp"></RelativeLayout>
+                android:padding="10dp">
+
+                <TextView
+                    android:id="@+id/fit_1"
+                    style="@style/tv_roll_style" />
+
+                <TextView
+                    android:id="@+id/fit_2"
+                    style="@style/tv_roll_style"
+                    android:layout_toRightOf="@+id/fit_1" />
+
+                <TextView
+                    android:id="@+id/fit_3"
+                    style="@style/tv_roll_style"
+                    android:layout_toRightOf="@+id/fit_2" />
+
+            </RelativeLayout>
         </LinearLayout>
     </LinearLayout>
     <!--</LinearLayout>-->

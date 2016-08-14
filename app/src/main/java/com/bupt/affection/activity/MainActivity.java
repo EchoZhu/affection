@@ -12,7 +12,6 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -20,7 +19,6 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.alibaba.fastjson.JSONObject;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.feedback.FeedbackAgent;
@@ -44,7 +42,7 @@ public class MainActivity extends BaseActivity
     private Dialog tipDialog;
     private RadioButton rb_main_schedule;
     private RadioButton rb_main_gallery;
-//    private RadioButton rb_main_message;
+    //    private RadioButton rb_main_message;
     private RadioButton rb_main_location;
     private Toolbar toolbar;
 
@@ -73,54 +71,70 @@ public class MainActivity extends BaseActivity
     }
 
     private void addLeanCloudData() {
-        AVObject Parents = new AVObject("Parents");// 构建对象
-//        String foods[] = {"西红柿炒鸡蛋","牛奶","油饼","凉拌三丝"};
-//        String acts[] = {"打桥牌","跳广场舞","京剧演出","散步"};
-//        String sleeps[] = {"睡眠状况良好","午睡时间适中","无瞌睡状况"};
-//        scheduleShow.put("food", foods);
-//        scheduleShow.put("act", acts);
+//        AVObject Parents = new AVObject("Parents");// 构建对象
+////        String foods[] = {"西红柿炒鸡蛋","牛奶","油饼","凉拌三丝"};
+////        String acts[] = {"打桥牌","跳广场舞","京剧演出","散步"};
+////        String sleeps[] = {"睡眠状况良好","午睡时间适中","无瞌睡状况"};
+////        scheduleShow.put("food", foods);
+////        scheduleShow.put("act", acts);
+//        List<String> foodList = new ArrayList<>();
+//        foodList.add("炒菜花");
+//        foodList.add("炒菜花0");
+//        foodList.add("炒菜花1");
+//        foodList.add("炒菜花2");
+//
+//        List<String> actList = new ArrayList<>();
+//        actList.add("跳广场舞");
+//        actList.add("跳广场舞1");
+//        actList.add("跳广场舞3");
+//        actList.add("跳广场舞4");
+//
+//        List<String> sleepList = new ArrayList<>();
+//        sleepList.add("睡眠状况良好");
+//        sleepList.add("睡眠状况良好0");
+//        sleepList.add("睡眠状况良好1");
+//        sleepList.add("睡眠状况良好2");
+//        sleepList.add("睡眠状况良好3");
+//
+//
+//        List<String> picList = new ArrayList<>();
+//        picList.add("http://ww3.sinaimg.cn/mw690/49a565f3jw1f6ju4fx2vnj21jk13dn8w.jpg");
+//        picList.add("http://ww2.sinaimg.cn/mw690/49a565f3jw1f6ju4hqrbej21jk10349g.jpg");
+//        picList.add("http://ww4.sinaimg.cn/mw690/49a565f3jw1f6ju4jj6ixj21jk1127fl.jpg");
+//
+//        List<String> msgList = new ArrayList<>();
+//        msgList.add("这是第一条消息");
+//        msgList.add("这是第二条消息");
+//        msgList.add("这是第三条消息");
+//
+//        Parents.put("food", foodList);
+//        Parents.put("act", actList);
+//        Parents.put("sleep", sleepList);
+//        Parents.put("pic", picList);
+//        Parents.put("message", msgList);
+//
+//        Parents.put("priority", 1);// 设置优先级
+//        Parents.put("children", "18801253526");// 设置子女账号
+//        Parents.put("nurse", "18801253526");// 设置护工账号
+//        Parents.put("name", "王大爷");//设置老人姓名
+//
+//        Parents.put("longitude", "116.355932");//设置经度
+//        Parents.put("latitude", "39.963201");//设置纬度
+//
+//        Parents.saveInBackground();// 保存到服务端
 
-        JSONObject foodObject = new JSONObject();
-        foodObject.put("food_1", "炒菜花");
-        foodObject.put("food_2", "豆腐");
-        foodObject.put("food_3", "凉拌三丝");
 
-        JSONObject actObject = new JSONObject();
-        actObject.put("act_1", "散步");
-        actObject.put("act_2", "跳广场舞");
-        actObject.put("act_3", "京剧演出");
+        AVObject foods = new AVObject("Foods");// 构建对象
+        List<String> foodList = new ArrayList<>();
+        foodList.add("鲜豆浆");
+        foodList.add("牛奶");
+        foodList.add("南瓜粥");
+        foodList.add("豆沙包");
+        foodList.add("小米稀饭");
+        foodList.add("混沌");
+        foods.put("food", foodList);
+        foods.saveInBackground();
 
-        JSONObject sleepObject = new JSONObject();
-        sleepObject.put("sleep_1", "睡眠状况良好");
-        sleepObject.put("sleep_2", "午睡时间适中");
-        sleepObject.put("sleep_3", "无瞌睡状况");
-
-
-        List<String> picList = new ArrayList<>();
-        picList.add("http://ww3.sinaimg.cn/mw690/49a565f3jw1f6ju4fx2vnj21jk13dn8w.jpg");
-        picList.add("http://ww2.sinaimg.cn/mw690/49a565f3jw1f6ju4hqrbej21jk10349g.jpg");
-        picList.add("http://ww4.sinaimg.cn/mw690/49a565f3jw1f6ju4jj6ixj21jk1127fl.jpg");
-
-        List<String> msgList = new ArrayList<>();
-        msgList.add("这是第一条消息");
-        msgList.add("这是第二条消息");
-        msgList.add("这是第三条消息");
-
-        Parents.put("food", foodObject);
-        Parents.put("act", actObject);
-        Parents.put("sleep", sleepObject);
-        Parents.put("pic", picList);
-        Parents.put("message", msgList);
-
-        Parents.put("priority", 1);// 设置优先级
-        Parents.put("children", "18801253526");// 设置子女账号
-        Parents.put("nurse", "18801253526");// 设置护工账号
-        Parents.put("name", "王大爷");//设置老人姓名
-
-        Parents.put("longitude", "116.355932");//设置经度
-        Parents.put("latitude", "39.963201");//设置纬度
-
-        Parents.saveInBackground();// 保存到服务端
     }
 
     private void initUI() {
@@ -229,30 +243,30 @@ public class MainActivity extends BaseActivity
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        // Inflate the menu; this adds items to the action bar if it is present.
+//        getMenuInflater().inflate(R.menu.main, menu);
+//        return true;
+//    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            //增加一个类，ScheduleShow，存储没有登录的时候日程的信息
-            addLeanCloudData();
-            return true;
-        }
-
-
-        return super.onOptionsItemSelected(item);
-    }
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        // Handle action bar item clicks here. The action bar will
+//        // automatically handle clicks on the Home/Up button, so long
+//        // as you specify a parent activity in AndroidManifest.xml.
+//        int id = item.getItemId();
+//
+//        //noinspection SimplifiableIfStatement
+//        if (id == R.id.action_settings) {
+//            //增加一个类，ScheduleShow，存储没有登录的时候日程的信息
+//            addLeanCloudData();
+//            return true;
+//        }
+//
+//
+//        return super.onOptionsItemSelected(item);
+//    }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -263,14 +277,13 @@ public class MainActivity extends BaseActivity
         if (id == R.id.nav_bindparent) {
             if (null != PreferencesUtil.getString(getBaseContext(), UserConfig.MOBILE)) {
                 if (null != PreferencesUtil.getString(MainActivity.this, UserConfig.PRENTID)) {
-                    Toast.makeText(MainActivity.this,"您已经关联过相关老人，无需再次关联",Toast.LENGTH_LONG).show();
-                }else{
+                    Toast.makeText(MainActivity.this, "您已经关联过相关老人，无需再次关联", Toast.LENGTH_LONG).show();
+                } else {
                     startActivity(new Intent(MainActivity.this, BindParentActivity.class));
                 }
             } else {
                 startActivity(new Intent(MainActivity.this, LoginActivity.class));
             }
-
 
 
         } else if (id == R.id.nav_logout) {
@@ -300,10 +313,10 @@ public class MainActivity extends BaseActivity
         } else if (id == R.id.nav_sendmsg) {
 
             if (null != PreferencesUtil.getString(getBaseContext(), UserConfig.MOBILE)) {
-                if (null!= PreferencesUtil.getString(getBaseContext(),UserConfig.PRENTID)){
-                    startActivity(new Intent(MainActivity.this,MessageActivity.class));
-                }else{
-                    startActivity(new Intent(MainActivity.this,BindParentActivity.class));
+                if (null != PreferencesUtil.getString(getBaseContext(), UserConfig.PRENTID)) {
+                    startActivity(new Intent(MainActivity.this, MessageActivity.class));
+                } else {
+                    startActivity(new Intent(MainActivity.this, BindParentActivity.class));
                 }
 
             } else {
@@ -311,7 +324,12 @@ public class MainActivity extends BaseActivity
             }
 
         } else if (id == R.id.nav_share) {
-
+            Intent intent=new Intent(Intent.ACTION_SEND);
+            intent.setType("text/plain");
+            intent.putExtra(Intent.EXTRA_SUBJECT,"分享");
+            intent.putExtra(Intent.EXTRA_TEXT, "亲情一系，让您时刻了解老人情况，让爱与您同在。下载地址：");
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(Intent.createChooser(intent, "share"));
         } else if (id == R.id.nav_feedback) {
             if (null != PreferencesUtil.getString(getBaseContext(), UserConfig.MOBILE)) {
                 FeedbackAgent agent = new FeedbackAgent(MainActivity.this);
